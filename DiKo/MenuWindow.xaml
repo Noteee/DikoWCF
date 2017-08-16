@@ -1,0 +1,32 @@
+﻿<Window x:Class="DiKo.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiKo"
+        mc:Ignorable="d"
+        Title="MenuWindow" Height="auto" Width="auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="1" Grid.Column="0" x:Name="sharedTreeViewPanel"  HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+            <TreeView x:Name="whatToShareTreeView" Height="auto"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="1" x:Name="sharedContentPanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+            <DataGrid  x:Name="sharedGrid" Height="auto"/>
+        </DockPanel>
+        <DockPanel Grid.Row="0" Grid.Column="0" x:Name="menuSharedPanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto">
+            <Image x:Name="sharedItemsButton" Height="auto" Source="Images/mySharedItems(1).png" Stretch="Fill"/>
+        </DockPanel>
+        <DockPanel Grid.Row="0" Grid.Column="1" x:Name="menuSharedWithMePanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+            <Image x:Name="itemsSharedWithMeButton" Height="auto" Stretch="Fill" Source="Images/itemsSharedWithMe.png" Margin="0,0,0,0" Width="auto"/>
+        </DockPanel>
+
+    </Grid>
+</Window>

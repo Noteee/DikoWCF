@@ -70,8 +70,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MenuWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenuWindow.xaml.cs">
+      <DependentUpon>MenuWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,6 +114,9 @@
     <Resource Include="Images\loadingAnimation.gif" />
     <Resource Include="Images\circlebackground.png" />
     <Resource Include="Images\loadtext.gif" />
+    <Resource Include="Images\myshareditems.png" />
+    <Resource Include="Images\mySharedItems%281%29.png" />
+    <Resource Include="Images\itemsSharedWithMe.png" />
     <Content Include="Images\splashBackground.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
