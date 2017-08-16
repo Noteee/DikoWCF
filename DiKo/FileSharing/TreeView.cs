@@ -7,15 +7,15 @@ using System.Windows.Controls;
 
 namespace DiKo.FileSharing
 {
-    class TreeView
+    class Treeview
     {
         private object dummyNode = null;
-        private TreeView tree;
+        private Treeview tree;
         private StackPanel panel;
         private DataGrid dataGrid;
         private string path;
 
-        public treeview(TreeView tree, StackPanel panel, DataGrid dataGrid)
+        public treeview(Treeview tree, StackPanel panel, DataGrid dataGrid)
         {
             this.tree = tree;
             this.panel = panel;
@@ -100,7 +100,7 @@ namespace DiKo.FileSharing
 
         private void foldersItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            TreeView tree = (TreeView)sender;
+            Treeview tree = (Treeview)sender;
             TreeViewItem temp = ((TreeViewItem)tree.SelectedItem);
 
             if (temp == null)
@@ -116,7 +116,7 @@ namespace DiKo.FileSharing
                     temp2 = "";
                 }
                 SelectedImagePath = temp1 + temp2 + SelectedImagePath;
-                if (temp.Parent.GetType().Equals(typeof(TreeView)))
+                if (temp.Parent.GetType().Equals(typeof(Treeview)))
                 {
                     break;
                 }

@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="FileSharing\FileData.cs" />
     <Compile Include="FileSharing\ImageConverter.cs" />
-    <Compile Include="FileSharing\TreeView.cs" />
+    <Compile Include="FileSharing\Treeview.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

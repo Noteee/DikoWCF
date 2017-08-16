@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiKo.FileSharing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,10 @@ namespace DiKo
         {
             InitializeComponent();
             setSplashScreen();
+            //FileData datagrid = new FileData(*datagridforcontent*);
+            //datagrid.createDataGrid();
+            //Treeview tree = new TreeView(*treeview*, panel, *datagridforcontent*);
+            //tree.Window_Loaded();
         }
 
         public void setSplashScreen()
