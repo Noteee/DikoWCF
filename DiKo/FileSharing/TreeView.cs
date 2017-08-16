@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace DiKo.FileSharing
 {
     class Treeview
     {
         private object dummyNode = null;
-        private Treeview tree;
-        private StackPanel panel;
         private DataGrid dataGrid;
+        private TreeView tree;
         private string path;
 
-        public treeview(Treeview tree, StackPanel panel, DataGrid dataGrid)
+        public Treeview(TreeView tree, DataGrid dataGrid)
         {
             this.tree = tree;
-            this.panel = panel;
             this.dataGrid = dataGrid;
         }
 
@@ -26,6 +27,7 @@ namespace DiKo.FileSharing
 
         public void Window_Loaded()
         {
+            
             foreach (string s in Directory.GetLogicalDrives())
             {
                 TreeViewItem item = new TreeViewItem();
@@ -100,7 +102,7 @@ namespace DiKo.FileSharing
 
         private void foldersItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            Treeview tree = (Treeview)sender;
+            TreeView tree = (TreeView)sender;
             TreeViewItem temp = ((TreeViewItem)tree.SelectedItem);
 
             if (temp == null)
@@ -116,7 +118,7 @@ namespace DiKo.FileSharing
                     temp2 = "";
                 }
                 SelectedImagePath = temp1 + temp2 + SelectedImagePath;
-                if (temp.Parent.GetType().Equals(typeof(Treeview)))
+                if (temp.Parent.GetType().Equals(typeof(TreeView)))
                 {
                     break;
                 }
