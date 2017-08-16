@@ -5,18 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiKo"
         mc:Ignorable="d"
-        Title="MenuWindow" Height="auto" Width="auto">
+        Title="MenuWindow" Height="auto" Width="auto" d:DesignWidth="1532.812" d:DesignHeight="843.835">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="95*"/>
         </Grid.ColumnDefinitions>
+        <Grid Background="BlanchedAlmond" Grid.Row="1">
+        </Grid>
         <DockPanel Grid.Row="1" Grid.Column="0" x:Name="sharedTreeViewPanel"  HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <TreeView x:Name="whatToShareTreeView" Height="auto">
+            <TreeView x:Name="whatToShareTreeView" Height="auto" BorderBrush="Transparent" Background="Transparent" AllowDrop="True">
                 <TreeView.Resources>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="HeaderTemplate">
@@ -36,14 +40,23 @@
             </TreeView>
 
         </DockPanel>
-        <DockPanel Grid.Row="1" Grid.Column="1" x:Name="sharedContentPanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <DataGrid  x:Name="sharedGrid" Height="auto"/>
+        <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="sharedContentPanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+            <DataGrid  x:Name="sharedGrid" Height="auto" Width="auto" CanUserReorderColumns="True">
+                <DataGrid.MinColumnWidth>
+                    100
+                </DataGrid.MinColumnWidth>
+                <DataGrid.ColumnWidth>
+                    *
+                </DataGrid.ColumnWidth>
+                    
+
+            </DataGrid>
         </DockPanel>
-        <DockPanel Grid.Row="0" Grid.Column="0" x:Name="menuSharedPanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto">
-            <Image x:Name="sharedItemsButton" Height="auto" Source="Images/mySharedItems(1).png" Stretch="Fill"/>
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="menuSharedPanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto">
+            <Image x:Name="sharedItemsButton" Height="auto" Source="Images/mySharedItems(1).png" Stretch="Fill" MinHeight="100" MaxHeight="100"/>
         </DockPanel>
-        <DockPanel Grid.Row="0" Grid.Column="1" x:Name="menuSharedWithMePanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <Image x:Name="itemsSharedWithMeButton" Height="auto" Stretch="Fill" Source="Images/itemsSharedWithMe.png" Margin="0,0,0,0" Width="auto"/>
+        <DockPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" x:Name="menuSharedWithMePanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+            <Image x:Name="itemsSharedWithMeButton" Height="auto" Stretch="Fill" Source="Images/itemsSharedWithMe.png" Margin="0,0,0,0" Width="auto" MinHeight="100" MaxHeight="100"/>
         </DockPanel>
 
     </Grid>
