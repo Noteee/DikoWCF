@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfAnimatedGif;
-
+using SQLDAL;
 namespace DiKo
 {
     /// <summary>
@@ -24,7 +24,10 @@ namespace DiKo
         public MainWindow()
         {
             InitializeComponent();
+            SQLDAL.SQLDAL.ConnecToDB();
             setSplashScreen();
+            
+            
         }
 
         public void setSplashScreen()
