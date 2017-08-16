@@ -1,0 +1,35 @@
+﻿<Window x:Class="DiKo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:DiKo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="432.652" Width="763.775"
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent">
+
+
+
+    <Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                 x:Name="SplashUI">
+
+        <Image gif:ImageBehavior.AnimatedSource="pack://application:,,,/Images/travolta.gif" Margin="-1,8,-1,9" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.338"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Label x:Name="DikoLoad" Content="DiKo is Loading!" HorizontalAlignment="Left" Margin="447,259,0,0" VerticalAlignment="Top" Height="89" Width="307" FontStyle="Oblique" FontWeight="ExtraBold" FontFamily="/DiKo;component/#Pictorial Signature" FontSize="70" TextOptions.TextHintingMode="Animated" FontStretch="UltraExpanded">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="2" Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+
+
+    </Grid>
+</Window>
