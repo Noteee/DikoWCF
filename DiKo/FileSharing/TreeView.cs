@@ -93,8 +93,16 @@ namespace DiKo.FileSharing
 
             else
             {
-                FileInfo file = new FileInfo(path);
-                dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), filePath = file.FullName, fileSize = getSize(file.Length) });
+                try
+                {
+                    FileInfo file = new FileInfo(path);
+                    dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), filePath = file.FullName, fileSize = getSize(file.Length) });
+                }
+                catch
+                {
+                    MessageBox.Show("Sorry, you can't share this content!");
+                }
+            
             }
 
         }

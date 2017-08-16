@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace DiKo.FileSharing
 {
@@ -37,6 +38,16 @@ namespace DiKo.FileSharing
             filesize.Header = "File Size";
             filesize.Binding = new Binding("fileSize");
             fileData.Columns.Add(filesize);
+
+            fileData.IsReadOnly = true;
+            fileData.MouseDoubleClick += DeleteContent;
+
+        }
+
+        private void DeleteContent(object sender, MouseButtonEventArgs e)
+        {
+
+            fileData.Items.Remove(fileData.SelectedItem);
         }
     }
 }
