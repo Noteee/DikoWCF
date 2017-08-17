@@ -12,6 +12,7 @@ namespace DiKo.SharedFileBrowsing
     {
         private bool asc = false;
         private string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
+        private string database = "[DiKo].[dbo].[SharedFiles]";
 
         public SqlConnection GetConnenction()
         {
@@ -45,7 +46,7 @@ namespace DiKo.SharedFileBrowsing
             SqlDataReader myReader = null;
             SqlConnection con = GetConnenction();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM[DiKo].[dbo].[SharedFiles]", con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM"+ database, con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
@@ -65,7 +66,7 @@ namespace DiKo.SharedFileBrowsing
             SqlDataReader myReader = null;
             SqlConnection con = GetConnenction();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM[DiKo].[dbo].[SharedFiles] WHERE Name LIKE '" + name+"%'", con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + database +" WHERE Name LIKE '" + name+"%'", con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
@@ -81,7 +82,7 @@ namespace DiKo.SharedFileBrowsing
             SqlDataReader myReader = null;
             SqlConnection con = GetConnenction();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM[DiKo].[dbo].[SharedFiles] ORDER BY "+type +" "+SetOrder(), con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM"+ database + " ORDER BY "+type +" "+SetOrder(), con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
