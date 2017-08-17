@@ -15,7 +15,7 @@ namespace SQLDAL
 
              try
             {
-                SqlConnection myConnection = new SqlConnection(@"Data Source = BYTEFORCEMAINPC\BYTESQL; Initial Catalog = DiKoDB; Integrated Security = True");
+                SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\SQLEXPRESS;Integrated Security=True");
                 myConnection.Open();
                 Console.WriteLine("Yeah");
             }
