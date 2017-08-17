@@ -10,6 +10,7 @@ namespace DiKo.SharedFileBrowsing
 {
     class Browser
     {
+        private bool asc = false;
         private string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
 
         public SqlConnection GetConnenction()
@@ -18,6 +19,25 @@ namespace DiKo.SharedFileBrowsing
                 new SqlConnection(path);
             return con;
         }
+
+        public bool SwitchBool()
+        {
+            return !asc;
+        }
+
+        private string SetOrder()
+        {
+            if (asc == true)
+            {
+                return "ASC";
+            }
+            else
+            {
+                return "DESC";
+            }
+        }
+
+
 
         public List<string> GetData()
         {
@@ -53,6 +73,26 @@ namespace DiKo.SharedFileBrowsing
             }
             con.Close();
             return filteredList;
+        }
+
+        public List<string> SortBy(string type)
+        {
+            List<string> sortList = new List<string>();
+            SqlDataReader myReader = null;
+            SqlConnection con = GetConnenction();
+            con.Open();
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM[DiKo].[dbo].[SharedFiles] ORDER BY "+type +" "+SetOrder(), con);
+            myReader = cmd.ExecuteReader();
+            while (myReader.Read())
+            {
+                sortList.Add(myReader["Name"].ToString());
+                sortList.Add(myReader["Path"].ToString());
+                sortList.Add(myReader["Extension"].ToString());
+                sortList.Add(myReader["Size"].ToString());
+
+            }
+            con.Close();
+            return sortList;
         }
 
     }
