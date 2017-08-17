@@ -19,7 +19,7 @@ namespace DiKo.SharedFileBrowsing
             return con;
         }
 
-        public List<string> GetUsers()
+        public List<string> GetData()
         {
             List<string> userList = new List<string>();
             SqlDataReader myReader = null;
