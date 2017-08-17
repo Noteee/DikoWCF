@@ -19,8 +19,10 @@
             <ColumnDefinition Width="89*"/>
             <ColumnDefinition Width="95*"/>
         </Grid.ColumnDefinitions>
-        <Grid Background="DarkGray" Grid.Row="1"/>
-        <Grid Background="DimGray" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <Grid x:Name="TreeGrid"  Background="DarkGray" Grid.Row="1"/>
+        <Grid x:Name="SharedDataGrid" Background="DimGray" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <Grid x:Name="sharedWithMe" Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"/>
+        
         <DockPanel Grid.Row="1" Grid.Column="0" x:Name="sharedTreeViewPanel"  HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
             <TreeView x:Name="whatToShareTreeView" Height="auto" BorderBrush="Transparent" Background="Transparent" AllowDrop="True">
                 <TreeView.Resources>
@@ -40,7 +42,6 @@
                     </Style>
                 </TreeView.Resources>
             </TreeView>
-
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="sharedContentPanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
             <DataGrid  x:Name="sharedGrid" Height="auto" Width="auto" CanUserReorderColumns="True">
@@ -50,22 +51,16 @@
                 <DataGrid.ColumnWidth>
                     <DataGridLength>*</DataGridLength>
                 </DataGrid.ColumnWidth>
-
-
             </DataGrid>
         </DockPanel>
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="menuSharedPanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto">
-
-
-            <Image x:Name="sharedItemsButton" Height="auto" Source="Images/mySharedItems(1).png" Stretch="Fill" MinHeight="80" MaxHeight="80"/>
-
+            <Image x:Name="sharedItemsButton" Height="auto" Source="Images/mySharedItems(1).png" Stretch="Fill" MinHeight="80" MaxHeight="80" MouseLeftButtonDown="sharedItemsButton_MouseLeftButtonDown"/>
         </DockPanel>
         <DockPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" x:Name="menuSharedWithMePanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <Image x:Name="itemsSharedWithMeButton" Height="auto" Stretch="Fill" Source="Images/itemsSharedWithMe.png" Margin="0,0,0,0" Width="auto" MinHeight="80" MaxHeight="80"/>
+            <Image x:Name="itemsSharedWithMeButton" Height="auto" Stretch="Fill" Source="Images/itemsSharedWithMe.png" Margin="0,0,0,0" Width="auto" MinHeight="80" MaxHeight="80" MouseLeftButtonDown="itemsSharedWithMeButton_MouseLeftButtonDown"/>
         </DockPanel>
         <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" x:Name="ShareButtonPanel" Background="Aqua">
-
-            <Button x:Name="shareButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="auto" Height="auto" MinWidth="2000" MinHeight="30" Background="Transparent" BorderThickness="0" Custom:ButtonHelper.PreserveTextCase="True">
+            <Button x:Name="shareButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="auto" Height="auto" MinWidth="2000" MinHeight="30" Background="Transparent" BorderThickness="0" Custom:ButtonHelper.PreserveTextCase="True" MouseLeftButtonDown="shareButton_MouseLeftButtonDown">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
@@ -78,9 +73,18 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
-                <Label Content="Please Press This Button To Share Your Files." VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+                <Label x:Name="shareButtonLabel" Content="Please Press This Button To Share Your Files." VerticalAlignment="Center" HorizontalAlignment="Center" MouseLeftButtonDown="shareButtonLabel_MouseLeftButtonDown"/>
             </Button>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="itemsSharedWithMePanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto" Background="#FFDC0B0B">
+            <DataGrid  x:Name="itemsSharedWithMeGrid" Height="auto" Width="auto" CanUserReorderColumns="True">
+                <DataGrid.MinColumnWidth>
+                    <System:Double>150</System:Double>
+                </DataGrid.MinColumnWidth>
+                <DataGrid.ColumnWidth>
+                    <DataGridLength>*</DataGridLength>
+                </DataGrid.ColumnWidth>
+            </DataGrid>
         </DockPanel>
     </Grid>
 </Window>
