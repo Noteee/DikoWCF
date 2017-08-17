@@ -10,10 +10,12 @@ namespace DiKo.SharedFileBrowsing
 {
     class Browser
     {
+        private string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
 
         public SqlConnection GetConnenction()
         {
-            SqlConnection con = new SqlConnection("Data Source = .;Initial Catalog = domain;Integrated Security = True");
+            SqlConnection con =
+                new SqlConnection(path);
             return con;
         }
 
@@ -23,14 +25,36 @@ namespace DiKo.SharedFileBrowsing
             SqlDataReader myReader = null;
             SqlConnection con = GetConnenction();
             con.Open();
-            SqlCommand cmd = new SqlCommand("Select users from tablename", con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM[DiKo].[dbo].[SharedFiles]", con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
-                userList.Add(myReader["Column1"].ToString());
+                userList.Add(myReader["Name"].ToString());
+                userList.Add(myReader["Path"].ToString());
+                userList.Add(myReader["Extension"].ToString());
+                userList.Add(myReader["Size"].ToString());
+
             }
             con.Close();
             return userList;
         }
+
+        public List<string> SearchByName(string name)
+        {
+            List<string> filteredList = new List<string>();
+            SqlDataReader myReader = null;
+            SqlConnection con = GetConnenction();
+            con.Open();
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM[DiKo].[dbo].[SharedFiles] WHERE Name LIKE '" + name+"%'", con);
+            myReader = cmd.ExecuteReader();
+            while (myReader.Read())
+            {
+                filteredList.Add(myReader["Name"].ToString());
+            }
+            con.Close();
+            return filteredList;
+        }
+
     }
 }
+
