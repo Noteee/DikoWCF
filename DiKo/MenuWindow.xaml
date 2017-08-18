@@ -76,8 +76,8 @@
                 <Label x:Name="shareButtonLabel" Content="Please Press This Button To Share Your Files." VerticalAlignment="Center" HorizontalAlignment="Center" MouseLeftButtonDown="shareButtonLabel_MouseLeftButtonDown"/>
             </Button>
         </DockPanel>
-        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="itemsSharedWithMePanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto" Background="#FFDC0B0B">
-            <DataGrid  x:Name="itemsSharedWithMeGrid" Height="auto" Width="auto" CanUserReorderColumns="True">
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="itemsSharedWithMePanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto" Background="Transparent">
+            <DataGrid  x:Name="itemsSharedWithMeGrid" Height="auto" Width="auto" CanUserReorderColumns="True" Visibility="Hidden">
                 <DataGrid.MinColumnWidth>
                     <System:Double>150</System:Double>
                 </DataGrid.MinColumnWidth>

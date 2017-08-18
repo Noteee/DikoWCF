@@ -76,6 +76,7 @@ namespace DiKo
             TreeGrid.Background = Brushes.DarkGray;
             sharedWithMe.Background = Brushes.Transparent;
             ShareButtonPanel.Visibility = Visibility.Visible;
+            itemsSharedWithMeGrid.Visibility = Visibility.Hidden;
 
 
         }
@@ -87,6 +88,7 @@ namespace DiKo
             itemsSharedWithMePanel.Visibility = Visibility.Visible;
             sharedWithMe.Background = Brushes.DimGray;
             ShareButtonPanel.Visibility = Visibility.Hidden;
+            itemsSharedWithMeGrid.Visibility = Visibility.Visible;
         }
     }
 }
