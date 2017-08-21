@@ -51,10 +51,10 @@ namespace DiKo.FileSharing
         {
 
             fileData.Items.Remove(fileData.SelectedItem);
+                                                       
         
-            
-         ;
         }
+       
       
     }
 }
