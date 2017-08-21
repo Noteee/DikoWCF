@@ -34,6 +34,18 @@ namespace DiKo
             Treeview tree = new Treeview(whatToShareTreeView, sharedGrid);
             tree.Window_Loaded();
             SQLDAL.SQLDAL.ConnecToDB();
+            sharedContentPanel.Visibility = Visibility.Visible;
+            sharedTreeViewPanel.Visibility = Visibility.Visible;
+            itemsSharedWithMePanel.Visibility = Visibility.Hidden;
+            SharedDataGrid.Background = Brushes.DimGray;
+            TreeGrid.Background = Brushes.DarkGray;
+            sharedWithMe.Background = Brushes.Transparent;
+            ShareButtonPanel.Visibility = Visibility.Visible;
+            itemsSharedWithMeGrid.Visibility = Visibility.Hidden;
+            downLoadPanel.Visibility = Visibility.Hidden;
+            wishListPanel.Visibility = Visibility.Hidden;
+            refreshPanel.Visibility = Visibility.Hidden;
+            searchPanel.Visibility = Visibility.Hidden;
         }
 
         private void shareButton_Click(object sender, RoutedEventArgs e)
@@ -58,12 +70,6 @@ namespace DiKo
             MessageBox.Show("Shared Files Added!");
         }
 
-        private void shareButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            StartCloseTimer();
-            loadingScreen.Show();
-            loadingScreen.Topmost = true;
-        }
 
         private void shareButtonLabel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -71,29 +77,6 @@ namespace DiKo
             loadingScreen.Show();
             loadingScreen.Topmost = true;
 
-
-        }
-
-        public void test1()
-        {
-            sharedContentPanel.Visibility = Visibility.Visible;
-            sharedTreeViewPanel.Visibility = Visibility.Visible;
-            itemsSharedWithMePanel.Visibility = Visibility.Hidden;
-            SharedDataGrid.Background = Brushes.DimGray;
-            TreeGrid.Background = Brushes.DarkGray;
-            sharedWithMe.Background = Brushes.Transparent;
-            ShareButtonPanel.Visibility = Visibility.Visible;
-            itemsSharedWithMeGrid.Visibility = Visibility.Hidden;
-        }
-
-        public void test2()
-        {
-            sharedContentPanel.Visibility = Visibility.Hidden;
-            sharedTreeViewPanel.Visibility = Visibility.Hidden;
-            itemsSharedWithMePanel.Visibility = Visibility.Visible;
-            sharedWithMe.Background = Brushes.DimGray;
-            ShareButtonPanel.Visibility = Visibility.Hidden;
-            itemsSharedWithMeGrid.Visibility = Visibility.Visible;
 
         }
 

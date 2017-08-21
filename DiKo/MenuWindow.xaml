@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DiKo"
         xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="DiKo.MenuWindow"
         mc:Ignorable="d"
-        Title="MenuWindow" Height="auto" Width="auto" d:DesignWidth="1532.812" d:DesignHeight="843.835" MinHeight="300" MinWidth="800">
+        Title="MenuWindow" Height="auto" Width="auto" d:DesignWidth="1532.812" d:DesignHeight="843.835" MinHeight="300" MinWidth="1300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -103,6 +103,7 @@
         <DockPanel x:Name="searchPanel" Grid.Row="2" Grid.Column="3" Visibility="Hidden">
             <TextBox Height="25" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <Image Source="Images/Search-Icon-PNG-Graphic-Cave.png" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Image Source="Images/file-manager-for-windows-phone.png" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         </DockPanel>
     </Grid>
 </Window>

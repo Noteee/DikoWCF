@@ -17,7 +17,7 @@ namespace SQLDAL
 
              try
             {
-                SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\SQLEXPRESS;Integrated Security=True");
+                SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;User ID=test;Password=testpassito;");
                 myConnection.Open();
                 Console.WriteLine("Yeah");
                 myConnection.Close();
@@ -37,7 +37,7 @@ namespace SQLDAL
             foreach (FileShareHandler fs in fileShareHandler)
             {
                 Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
-                SqlCommand cmd = new SqlCommand("INSERT INTO DiKoDB.dbo.MySharedFiles(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension +"','" + fs.FileSize + "','" + fs.FilePath +"');",myconn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO[DiKoDB].[dbo].[MySharedFiles](FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension +"','" + fs.FileSize + "','" + fs.FilePath +"');",myconn);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
@@ -62,7 +62,7 @@ namespace SQLDAL
             foreach (FileShareHandler fs in fileShareHandler)
             {
                 Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
-                SqlCommand cmd = new SqlCommand("INSERT INTO DiKoDB.dbo.WishList(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension + "','" + fs.FileSize + "','" + fs.FilePath + "');", myconn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO [DiKoDB].[dbo].[WishList](FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension + "','" + fs.FileSize + "','" + fs.FilePath + "');", myconn);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
