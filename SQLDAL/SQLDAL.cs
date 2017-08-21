@@ -11,6 +11,7 @@ namespace SQLDAL
     {
         public static string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
         public static string database = @"[DiKo].[dbo].[SharedFiles]";
+        public static string wishlist = @"[DiKo].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
 
         public static void ConnecToDB()

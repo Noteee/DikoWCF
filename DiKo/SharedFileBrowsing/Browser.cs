@@ -88,6 +88,27 @@ namespace DiKo.SharedFileBrowsing
             return sortList;
         }
 
+        public List<FileShareHandler> GetWishListData()
+        {
+            List<FileShareHandler> dataList = new List<FileShareHandler>();
+            SqlDataReader myReader = null;
+            SqlConnection con = SQLDAL.SQLDAL.returnSqlConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + SQLDAL.SQLDAL.wishlist, con);
+            myReader = cmd.ExecuteReader();
+            while (myReader.Read())
+            {
+                dataList.Add(new FileShareHandler(myReader["Name"].ToString(), myReader["Path"].ToString(), myReader["Extension"].ToString(), myReader["Size"].ToString()));
+
+
+
+
+
+            }
+            con.Close();
+            return dataList;
+        }
+
     }
 }
 
