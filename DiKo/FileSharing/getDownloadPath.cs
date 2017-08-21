@@ -33,6 +33,11 @@ namespace DiKo.FileSharing
 
         public string GetEnvironmentalVariable()
         {
+            if (Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User) == null)
+            {
+                SetEnvinronmentalVariable(path);
+                return Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User);
+            }
             return Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User);
         }
     }
