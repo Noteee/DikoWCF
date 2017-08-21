@@ -7,13 +7,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using SQLDAL;
 
 namespace DiKo.FileSharing
 {
+
     class Treeview
     {
+        private static List<FileShareHandler> myFileShareList = new List<FileShareHandler>();
         private object dummyNode = null;
+        private static List<FileShareHandler> myWishList = new List<FileShareHandler>();
         private DataGrid dataGrid;
+        private static DataGrid currentDatagrid;
         private TreeView tree;
         private string path;
 
@@ -27,7 +32,7 @@ namespace DiKo.FileSharing
 
         public void Window_Loaded()
         {
-            
+
             foreach (string s in Directory.GetLogicalDrives())
             {
                 TreeViewItem item = new TreeViewItem();
@@ -43,8 +48,13 @@ namespace DiKo.FileSharing
 
         }
 
+        public static List<FileShareHandler> getFileShareList()
+        {
+          
+            return myFileShareList;
+        }
 
-        void folder_Expanded(object sender, RoutedEventArgs e)
+        public void folder_Expanded(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = (TreeViewItem)sender;
             if (item.Items.Count == 1 && item.Items[0] == dummyNode)
@@ -97,16 +107,29 @@ namespace DiKo.FileSharing
                 {
                     FileInfo file = new FileInfo(path);
                     dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), filePath = file.FullName, fileSize = getSize(file.Length) });
+                    /* myFileShareList.Add(new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), file.FullName, getSize(file.Length).ToString()));
+                     foreach(DataItem v in dataGrid.Items)
+                     {
+                         Console.WriteLine(v.fileName);
+                     }
+                     */
+                     WriteSharedFileList(dataGrid);
+                     currentDatagrid = this.dataGrid;
+                    
                 }
                 catch
                 {
                     MessageBox.Show("Sorry, you can't share this content!");
                 }
-            
+
             }
 
         }
 
+        public static DataGrid GetCurrentDataGrid()
+        {
+            return currentDatagrid;
+        }
 
         private void foldersItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -169,6 +192,56 @@ namespace DiKo.FileSharing
         }
 
 
+        private void logToConsole(List<FileShareHandler> fs)
+        {
+            try
+            {
+                foreach (var v in fs)
+                {
+                    Console.WriteLine(v.FileName);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+       
+      
 
+        public static void WriteSharedFileList(DataGrid datagrid)
+        {
+            List<FileShareHandler> mySharedFiles = new List<FileShareHandler>();
+            foreach (DataItem dI in datagrid.Items)
+            {
+                mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
+                Console.WriteLine(dI.fileName);
+            }
+        }
+
+        public static List<FileShareHandler> GetSharedFileList(DataGrid datagrid)
+        {
+            List<FileShareHandler> mySharedFiles = new List<FileShareHandler>();
+            foreach (DataItem dI in datagrid.Items)
+            {
+                mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
+                Console.WriteLine(dI.fileName);
+            }
+            return mySharedFiles;
+        }
+        public static void AddToWishList(FileShareHandler wishFile)
+        {
+            myWishList.Add(wishFile);
+        }
+        public static void DeleteFromWishList(FileShareHandler wishfile)
+        {
+            for(int i = 0; i < myWishList.Count(); i++)
+            {
+                if (myWishList[i].FileName.Equals(wishfile.FileName) && myWishList[i].FileSize.Equals(wishfile.FileSize) && myWishList[i].FilePath.Equals(wishfile.FilePath) && myWishList[i].FileExtension.Equals(wishfile.FileExtension));
+                {
+                    myWishList.RemoveAt(i);
+                }
+            }
+        }
     }
 }

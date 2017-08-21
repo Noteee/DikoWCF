@@ -117,7 +117,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <Resource Include="Pictorial Signature.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -150,6 +149,15 @@
     <Resource Include="Images\download-icon-png-20.png" />
     <Resource Include="Images\Search-Icon-PNG-Graphic-Cave.png" />
     <Content Include="Images\splashBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SQLDAL\SQLDAL.csproj">
+      <Project>{e5484087-3e18-41c8-b590-758a3958d1f5}</Project>
+      <Name>SQLDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
