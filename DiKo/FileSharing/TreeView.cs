@@ -16,6 +16,7 @@ namespace DiKo.FileSharing
     {
         private static List<FileShareHandler> myFileShareList = new List<FileShareHandler>();
         private object dummyNode = null;
+        private static List<FileShareHandler> myWishList = new List<FileShareHandler>();
         private DataGrid dataGrid;
         private static DataGrid currentDatagrid;
         private TreeView tree;
@@ -228,6 +229,19 @@ namespace DiKo.FileSharing
             }
             return mySharedFiles;
         }
-
+        public static void AddToWishList(FileShareHandler wishFile)
+        {
+            myWishList.Add(wishFile);
+        }
+        public static void DeleteFromWishList(FileShareHandler wishfile)
+        {
+            for(int i = 0; i < myWishList.Count(); i++)
+            {
+                if (myWishList[i].FileName.Equals(wishfile.FileName) && myWishList[i].FileSize.Equals(wishfile.FileSize) && myWishList[i].FilePath.Equals(wishfile.FilePath) && myWishList[i].FileExtension.Equals(wishfile.FileExtension));
+                {
+                    myWishList.RemoveAt(i);
+                }
+            }
+        }
     }
 }

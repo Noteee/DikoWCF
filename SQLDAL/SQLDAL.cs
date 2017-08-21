@@ -33,7 +33,7 @@ namespace SQLDAL
         }
 
         public static void WriteListToDB(List<FileShareHandler> fileShareHandler)
-        {   dropMySharedTable();
+        {   DropMySharedTable();
             foreach (FileShareHandler fs in fileShareHandler)
             {
                 Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
@@ -44,7 +44,7 @@ namespace SQLDAL
             }
         }
 
-        public static void dropMySharedTable(){
+        public static void DropMySharedTable(){
             SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS [DiKoDB].[dbo].[MySharedFiles];IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE [DiKoDB].[dbo].[MySharedFiles] (FileName TEXT, FileExtension TEXT, FileSize TEXT,FilePath TEXT);",myconn);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
@@ -54,7 +54,28 @@ namespace SQLDAL
         public static SqlConnection returnSqlConnection(){
 
             return new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Integrated Security=True");
-        }                                                        
+        }
+
+        public static void WriteWishListToDB(List<FileShareHandler> fileShareHandler)
+        {
+            DropMyWishList();
+            foreach (FileShareHandler fs in fileShareHandler)
+            {
+                Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
+                SqlCommand cmd = new SqlCommand("INSERT INTO DiKoDB.dbo.WishList(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension + "','" + fs.FileSize + "','" + fs.FilePath + "');", myconn);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+            }
+        }
+        public static void DropMyWishList()
+        {
+            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS [DiKoDB].[dbo].[WishList];IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='WishList' AND xtype='U')CREATE TABLE [DiKoDB].[dbo].[WishList] (FileName TEXT, FileExtension TEXT, FileSize TEXT,FilePath TEXT);", myconn);
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }
+     
 
     }
 }
