@@ -9,15 +9,19 @@ namespace SQLDAL
 {
     public class SQLDAL
     {
+
+        public static SqlConnection myconn = returnSqlConnection();
+
         public static void ConnecToDB()
         {
-            string serverAddress = @"bytesql";
 
              try
             {
                 SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\SQLEXPRESS;Integrated Security=True");
                 myConnection.Open();
                 Console.WriteLine("Yeah");
+                myConnection.Close();
+        
             }
             catch(Exception e)
             {
@@ -27,5 +31,30 @@ namespace SQLDAL
            
             }
         }
+
+        public static void WriteListToDB(List<FileShareHandler> fileShareHandler)
+        {   dropMySharedTable();
+            foreach (FileShareHandler fs in fileShareHandler)
+            {
+                Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
+                SqlCommand cmd = new SqlCommand("INSERT INTO DiKoDB.dbo.MySharedFiles(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension +"','" + fs.FileSize + "','" + fs.FilePath +"');",myconn);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+            }
+        }
+
+        public static void dropMySharedTable(){
+            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS [DiKoDB].[dbo].[MySharedFiles];IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE [DiKoDB].[dbo].[MySharedFiles] (FileName TEXT, FileExtension TEXT, FileSize TEXT,FilePath TEXT);",myconn);
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }     
+
+        public static SqlConnection returnSqlConnection(){
+
+            return new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Integrated Security=True");
+        }                                                        
+
     }
 }

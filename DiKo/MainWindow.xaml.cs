@@ -15,14 +15,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfAnimatedGif;
+using SQLDAL;
 
 namespace DiKo
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+   
     public partial class MainWindow : Window
     {
+        private static List<Object> myShareList = new List<object>();
         MenuWindow menuWindow = new MenuWindow();
         public MainWindow()
         {
