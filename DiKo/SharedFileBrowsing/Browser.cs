@@ -5,21 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using SQLDAL;
 
 namespace DiKo.SharedFileBrowsing
 {
     class Browser
     {
         private bool asc = false;
-        private string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
-        private string database = "[DiKo].[dbo].[SharedFiles]";
 
-        public SqlConnection GetConnenction()
-        {
-            SqlConnection con =
-                new SqlConnection(path);
-            return con;
-        }
 
         public bool SwitchBool()
         {
@@ -40,56 +33,55 @@ namespace DiKo.SharedFileBrowsing
 
 
 
-        public List<string> GetData()
+        public List<FileShareHandler> GetData()
         {
-            List<string> userList = new List<string>();
+            List<FileShareHandler> dataList = new List<FileShareHandler>();
             SqlDataReader myReader = null;
-            SqlConnection con = GetConnenction();
+            SqlConnection con = SQLDAL.SQLDAL.returnSqlConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM"+ database, con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM"+ SQLDAL.SQLDAL.database, con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
-                userList.Add(myReader["Name"].ToString());
-                userList.Add(myReader["Path"].ToString());
-                userList.Add(myReader["Extension"].ToString());
-                userList.Add(myReader["Size"].ToString());
+                dataList.Add(new FileShareHandler(myReader["Name"].ToString(), myReader["Path"].ToString(), myReader["Extension"].ToString(), myReader["Size"].ToString()));
+                
+                
+                
+                
 
             }
             con.Close();
-            return userList;
+            return dataList;
         }
 
-        public List<string> SearchByName(string name)
+        public List<FileShareHandler> SearchByName(string name)
         {
-            List<string> filteredList = new List<string>();
+            List<FileShareHandler> filteredList = new List<FileShareHandler>();
             SqlDataReader myReader = null;
-            SqlConnection con = GetConnenction();
+            SqlConnection con = SQLDAL.SQLDAL.returnSqlConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + database +" WHERE Name LIKE '%" + name+"%'", con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + SQLDAL.SQLDAL.database + " WHERE Name LIKE '%" + name+"%'", con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
-                filteredList.Add(myReader["Name"].ToString());
+                filteredList.Add(new FileShareHandler(myReader["Name"].ToString(), myReader["Path"].ToString(), myReader["Extension"].ToString(), myReader["Size"].ToString()));
             }
             con.Close();
             return filteredList;
         }
 
-        public List<string> SortBy(string type)
+        public List<FileShareHandler> SortBy(string type)
         {
-            List<string> sortList = new List<string>();
+            List<FileShareHandler> sortList = new List<FileShareHandler>();
             SqlDataReader myReader = null;
-            SqlConnection con = GetConnenction();
+            SqlConnection con = SQLDAL.SQLDAL.returnSqlConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM"+ database + " ORDER BY "+type +" "+SetOrder(), con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM"+ SQLDAL.SQLDAL.database + " ORDER BY "+type +" "+SetOrder(), con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
-                sortList.Add(myReader["Name"].ToString());
-                sortList.Add(myReader["Path"].ToString());
-                sortList.Add(myReader["Extension"].ToString());
-                sortList.Add(myReader["Size"].ToString());
+
+                sortList.Add(new FileShareHandler(myReader["Name"].ToString(), myReader["Path"].ToString(), myReader["Extension"].ToString(), myReader["Size"].ToString()));
 
             }
             con.Close();
