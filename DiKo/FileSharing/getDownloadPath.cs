@@ -28,12 +28,12 @@ namespace DiKo.FileSharing
 
         public void SetEnvinronmentalVariable(string newPath)
         {
-            Environment.SetEnvironmentVariable(variable,newPath);
+            Environment.SetEnvironmentVariable(variable,newPath, EnvironmentVariableTarget.User);
         }
 
         public string GetEnvironmentalVariable()
         {
-            return Environment.GetEnvironmentVariable(variable);
+            return Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User);
         }
     }
 }
