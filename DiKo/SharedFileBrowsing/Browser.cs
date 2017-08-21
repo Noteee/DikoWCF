@@ -66,7 +66,7 @@ namespace DiKo.SharedFileBrowsing
             SqlDataReader myReader = null;
             SqlConnection con = GetConnenction();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + database +" WHERE Name LIKE '" + name+"%'", con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + database +" WHERE Name LIKE '%" + name+"%'", con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
