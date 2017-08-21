@@ -130,6 +130,8 @@
     <Resource Include="Images\load.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\refresh-icon-10847.png" />
+    <Resource Include="Images\wishlist.png" />
     <Resource Include="Images\travolta.gif" />
     <Resource Include="Images\loadingAnimation.gif" />
     <Resource Include="Images\circlebackground.png" />
@@ -144,6 +146,9 @@
     <Resource Include="Images\buttons_PNG33.png" />
     <Resource Include="Images\OrangeSquareButton.png" />
     <Resource Include="Images\shareLoad.gif" />
+    <Resource Include="Images\009850-ultra-glossy-silver-button-icon-arrows-arrow2-download.png" />
+    <Resource Include="Images\download-icon-png-20.png" />
+    <Resource Include="Images\Search-Icon-PNG-Graphic-Cave.png" />
     <Content Include="Images\splashBackground.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

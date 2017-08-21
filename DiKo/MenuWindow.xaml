@@ -54,13 +54,14 @@
             </DataGrid>
         </DockPanel>
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="menuSharedPanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto">
-            <Image x:Name="sharedItemsButton" Height="auto" Source="Images/mySharedItems(1).png" Stretch="Fill" MinHeight="80" MaxHeight="80" MouseLeftButtonDown="sharedItemsButton_MouseLeftButtonDown"/>
+            <Button x:Name="sharedItemsButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="My Shared Itmes"  Height="80" Width="2000" Background="Aqua" Click="sharedItemsButton_Click"/>
         </DockPanel>
         <DockPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" x:Name="menuSharedWithMePanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <Image x:Name="itemsSharedWithMeButton" Height="auto" Stretch="Fill" Source="Images/itemsSharedWithMe.png" Margin="0,0,0,0" Width="auto" MinHeight="80" MaxHeight="80" MouseLeftButtonDown="itemsSharedWithMeButton_MouseLeftButtonDown"/>
+            <Button x:Name="itemsSharedWithMe" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="Items Shared With me" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="80" Width="2000" Background="Aqua" Click="itemsSharedWithMe_Click" />
+
         </DockPanel>
         <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" x:Name="ShareButtonPanel" Background="Aqua">
-            <Button x:Name="shareButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="auto" Height="auto" MinWidth="2000" MinHeight="30" Background="Transparent" BorderThickness="0" Custom:ButtonHelper.PreserveTextCase="True" MouseLeftButtonDown="shareButton_MouseLeftButtonDown">
+            <Button x:Name="shareButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="auto" Height="auto" MinWidth="2000" MinHeight="30" Background="Transparent" BorderThickness="0" Custom:ButtonHelper.PreserveTextCase="True" MouseLeftButtonDown="shareButton_MouseLeftButtonDown" >
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
@@ -85,6 +86,22 @@
                     <DataGridLength>*</DataGridLength>
                 </DataGrid.ColumnWidth>
             </DataGrid>
+        </DockPanel>
+        <DockPanel x:Name="downLoadPanel" Grid.Row="2" Grid.Column="0" Visibility="Hidden">
+            <Image Source="Images/download-icon-png-20.png" Height="30">
+                </Image>
+        </DockPanel>
+        <DockPanel x:Name="wishListPanel" Grid.Row="2" Grid.Column="1" Visibility="Hidden">
+            <Image Source="Images/wishlist.png" Height="30">
+            </Image>
+        </DockPanel>
+        <DockPanel x:Name="refreshPanel" Grid.Row="2" Grid.Column="2" Visibility="Hidden">
+            <Image Source="Images/refresh-icon-10847.png" Height="30">
+            </Image>
+        </DockPanel>
+        <DockPanel x:Name="searchPanel" Grid.Row="2" Grid.Column="3" Visibility="Hidden">
+            <TextBox Height="25" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Image Source="Images/Search-Icon-PNG-Graphic-Cave.png" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         </DockPanel>
     </Grid>
 </Window>

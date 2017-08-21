@@ -14,7 +14,7 @@
     <Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                  x:Name="SplashUI">
 
-        <Image gif:ImageBehavior.AnimatedSource="pack://application:,,,/Images/travolta.gif" Margin="-1,8,-1,9" RenderTransformOrigin="0.5,0.5" >
+        <Image gif:ImageBehavior.AnimatedSource="pack://application:,,,/Images/loadingAnimation.gif" Margin="-1,8,-1,9" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -24,7 +24,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Label x:Name="DikoLoad" Content="DiKo is Loading!" HorizontalAlignment="Left" Margin="447,259,0,0" VerticalAlignment="Top" Height="89" Width="307" FontStyle="Oblique" FontWeight="ExtraBold" FontFamily="/DiKo;component/#Pictorial Signature" FontSize="70" TextOptions.TextHintingMode="Animated" FontStretch="UltraExpanded">
+        <Label x:Name="DikoLoad" Content="DiKo is Loading!" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="89" Width="450" FontStyle="Oblique" FontWeight="ExtraBold" FontFamily="/DiKo;component/#Pictorial Signature" FontSize="100" TextOptions.TextHintingMode="Animated" FontStretch="UltraExpanded">
             <Label.Effect>
                 <DropShadowEffect BlurRadius="2" Opacity="0.5"/>
             </Label.Effect>
