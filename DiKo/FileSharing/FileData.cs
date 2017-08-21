@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Collections;
+using SQLDAL;
 
 namespace DiKo.FileSharing
 {
     class FileData
     {
+        private static List<FileShareHandler> fileShareList = new List<FileShareHandler>();
         DataGrid fileData;
         public FileData(DataGrid data)
         {
@@ -41,13 +44,17 @@ namespace DiKo.FileSharing
 
             fileData.IsReadOnly = true;
             fileData.MouseDoubleClick += DeleteContent;
-
+         
         }
 
         private void DeleteContent(object sender, MouseButtonEventArgs e)
         {
 
             fileData.Items.Remove(fileData.SelectedItem);
+        
+            
+         ;
         }
+      
     }
 }

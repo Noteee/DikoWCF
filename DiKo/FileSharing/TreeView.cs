@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using SQLDAL;
 
 namespace DiKo.FileSharing
 {
+
     class Treeview
     {
+        private static List<FileShareHandler> myFileShareList = new List<FileShareHandler>();
         private object dummyNode = null;
         private DataGrid dataGrid;
         private TreeView tree;
@@ -27,7 +30,7 @@ namespace DiKo.FileSharing
 
         public void Window_Loaded()
         {
-            
+
             foreach (string s in Directory.GetLogicalDrives())
             {
                 TreeViewItem item = new TreeViewItem();
@@ -43,8 +46,12 @@ namespace DiKo.FileSharing
 
         }
 
+        public static List<FileShareHandler> getFileShareList()
+        {
+            return myFileShareList;
+        }
 
-        void folder_Expanded(object sender, RoutedEventArgs e)
+        public void folder_Expanded(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = (TreeViewItem)sender;
             if (item.Items.Count == 1 && item.Items[0] == dummyNode)
@@ -97,15 +104,18 @@ namespace DiKo.FileSharing
                 {
                     FileInfo file = new FileInfo(path);
                     dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), filePath = file.FullName, fileSize = getSize(file.Length) });
+                    myFileShareList.Add(new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), file.FullName, getSize(file.Length).ToString()));
+                    logToConsole(myFileShareList);
                 }
                 catch
                 {
                     MessageBox.Show("Sorry, you can't share this content!");
                 }
-            
+
             }
 
         }
+
 
 
         private void foldersItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -168,6 +178,22 @@ namespace DiKo.FileSharing
             }
         }
 
+
+        private void logToConsole(List<FileShareHandler> fs)
+        {
+            try
+            {
+                foreach (var v in fs)
+                {
+                    Console.WriteLine(v.FileName);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+       
 
 
     }

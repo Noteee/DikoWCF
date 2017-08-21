@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SQLDAL;
 
 namespace DiKo
 {
@@ -28,6 +29,12 @@ namespace DiKo
             datagrid.createDataGrid();
             Treeview tree = new Treeview(whatToShareTreeView, sharedGrid);
             tree.Window_Loaded();
+            SQLDAL.SQLDAL.ConnecToDB();
+        }
+
+        private void shareButton_Click(object sender, RoutedEventArgs e)
+        {
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.getFileShareList());
         }
     }
 }
