@@ -9,7 +9,7 @@ namespace DiKo.FileSharing
 {
     class getDownloadPath
     {
-        private string path;
+        private string path = @"C:\Shared Files";
         public void getDownloadFolder()
         {
             var dialog = new VistaFolderBrowserDialog();
