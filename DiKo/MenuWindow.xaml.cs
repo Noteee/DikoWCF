@@ -34,7 +34,7 @@ namespace DiKo
 
         private void shareButton_Click(object sender, RoutedEventArgs e)
         {
-            SQLDAL.SQLDAL.WriteListToDB(Treeview.getFileShareList());
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
         }
     }
 }

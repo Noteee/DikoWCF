@@ -17,6 +17,7 @@ namespace DiKo.FileSharing
         private static List<FileShareHandler> myFileShareList = new List<FileShareHandler>();
         private object dummyNode = null;
         private DataGrid dataGrid;
+        private static DataGrid currentDatagrid;
         private TreeView tree;
         private string path;
 
@@ -48,6 +49,7 @@ namespace DiKo.FileSharing
 
         public static List<FileShareHandler> getFileShareList()
         {
+          
             return myFileShareList;
         }
 
@@ -104,8 +106,15 @@ namespace DiKo.FileSharing
                 {
                     FileInfo file = new FileInfo(path);
                     dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), filePath = file.FullName, fileSize = getSize(file.Length) });
-                    myFileShareList.Add(new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), file.FullName, getSize(file.Length).ToString()));
-                    logToConsole(myFileShareList);
+                    /* myFileShareList.Add(new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), file.FullName, getSize(file.Length).ToString()));
+                     foreach(DataItem v in dataGrid.Items)
+                     {
+                         Console.WriteLine(v.fileName);
+                     }
+                     */
+                     WriteSharedFileList(dataGrid);
+                     currentDatagrid = this.dataGrid;
+                    
                 }
                 catch
                 {
@@ -116,7 +125,10 @@ namespace DiKo.FileSharing
 
         }
 
-
+        public static DataGrid GetCurrentDataGrid()
+        {
+            return currentDatagrid;
+        }
 
         private void foldersItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -194,7 +206,28 @@ namespace DiKo.FileSharing
             }
         }
        
+      
 
+        public static void WriteSharedFileList(DataGrid datagrid)
+        {
+            List<FileShareHandler> mySharedFiles = new List<FileShareHandler>();
+            foreach (DataItem dI in datagrid.Items)
+            {
+                mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
+                Console.WriteLine(dI.fileName);
+            }
+        }
+
+        public static List<FileShareHandler> GetSharedFileList(DataGrid datagrid)
+        {
+            List<FileShareHandler> mySharedFiles = new List<FileShareHandler>();
+            foreach (DataItem dI in datagrid.Items)
+            {
+                mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
+                Console.WriteLine(dI.fileName);
+            }
+            return mySharedFiles;
+        }
 
     }
 }
