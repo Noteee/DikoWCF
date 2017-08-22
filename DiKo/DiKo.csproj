@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SharedFileBrowsing\Browser.cs" />
     <Page Include="LoadingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +118,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <Resource Include="Pictorial Signature.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -148,6 +150,7 @@
     <Resource Include="Images\009850-ultra-glossy-silver-button-icon-arrows-arrow2-download.png" />
     <Resource Include="Images\download-icon-png-20.png" />
     <Resource Include="Images\Search-Icon-PNG-Graphic-Cave.png" />
+    <Resource Include="Images\file-manager-for-windows-phone.png" />
     <Content Include="Images\splashBackground.jpg" />
   </ItemGroup>
   <ItemGroup>

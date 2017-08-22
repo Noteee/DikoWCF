@@ -9,7 +9,8 @@ namespace DiKo.FileSharing
 {
     class getDownloadPath
     {
-        private string path;
+        private string path = @"C:\Shared Files";
+        private string variable = "DiKoShared";
         public void getDownloadFolder()
         {
             var dialog = new VistaFolderBrowserDialog();
@@ -23,6 +24,26 @@ namespace DiKo.FileSharing
         public string getPath()
         {
             return path;
+        }
+
+        public void setPath(string newPath)
+        {
+            path = newPath;
+        }
+
+        public void SetEnvinronmentalVariable(string newPath)
+        {
+            Environment.SetEnvironmentVariable(variable,newPath, EnvironmentVariableTarget.User);
+        }
+
+        public string GetEnvironmentalVariable()
+        {
+            if (Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User) == null)
+            {
+                SetEnvinronmentalVariable(path);
+                return Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User);
+            }
+            return Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User);
         }
     }
 }
