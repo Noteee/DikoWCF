@@ -103,7 +103,7 @@
         <DockPanel x:Name="searchPanel" Grid.Row="2" Grid.Column="3" Visibility="Hidden">
             <TextBox Height="25" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <Image Source="Images/Search-Icon-PNG-Graphic-Cave.png" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <Image Source="Images/file-manager-for-windows-phone.png" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <Image Source="Images/file-manager-for-windows-phone.png" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
         </DockPanel>
     </Grid>
 </Window>
