@@ -229,6 +229,8 @@ namespace DiKo.FileSharing
             }
             return mySharedFiles;
         }
+
+      
         public static void AddToWishList(FileShareHandler wishFile)
         {
             myWishList.Add(wishFile);

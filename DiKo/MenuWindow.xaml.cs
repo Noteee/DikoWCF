@@ -34,6 +34,7 @@ namespace DiKo
             tree.Window_Loaded();
             SQLDAL.SQLDAL.ConnecToDB();
         }
+      
 
         private void StartCloseTimer()
         {
@@ -57,14 +58,14 @@ namespace DiKo
             StartCloseTimer();
             loadingScreen.Show();
             loadingScreen.Topmost = true;
-            Treeview.WriteSharedFileList(Treeview.GetCurrentDataGrid());
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
         }
 
         private void shareButtonLabel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             StartCloseTimer();
             loadingScreen.Show();
-            Treeview.WriteSharedFileList(Treeview.GetCurrentDataGrid());
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
             loadingScreen.Topmost = true;
 
 
