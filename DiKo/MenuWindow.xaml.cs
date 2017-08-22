@@ -22,10 +22,12 @@ namespace DiKo
     /// </summary>
     public partial class MenuWindow : Window
     {
+        getDownloadPath downloadPath = new getDownloadPath();
         LoadingScreen loadingScreen = new LoadingScreen();
         public MenuWindow()
         {
             InitializeComponent();
+            downloadPath.setPath(downloadPath.GetEnvironmentalVariable());
             this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             FileData datagrid = new FileData(sharedGrid);
             FileData datagridShared = new FileData(itemsSharedWithMeGrid);
@@ -116,7 +118,10 @@ namespace DiKo
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            downloadPath.getDownloadFolder();
+            downloadPath.getPath();
+            downloadPath.SetEnvinronmentalVariable(downloadPath.getPath());
+            
         }
     }
 }

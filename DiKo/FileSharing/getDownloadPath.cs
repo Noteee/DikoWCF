@@ -26,6 +26,11 @@ namespace DiKo.FileSharing
             return path;
         }
 
+        public void setPath(string newPath)
+        {
+            path = newPath;
+        }
+
         public void SetEnvinronmentalVariable(string newPath)
         {
             Environment.SetEnvironmentVariable(variable,newPath, EnvironmentVariableTarget.User);
