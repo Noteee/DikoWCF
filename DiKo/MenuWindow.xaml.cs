@@ -113,5 +113,10 @@ namespace DiKo
             searchPanel.Visibility = Visibility.Visible;
             
         }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
