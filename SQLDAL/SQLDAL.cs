@@ -10,8 +10,8 @@ namespace SQLDAL
     public class SQLDAL
     {
         public static string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
-        public static string database = @"[DiKo].[dbo].[SharedFiles]";
-        public static string wishlist = @"[DiKo].[dbo].[WishList]";
+        public static string database = @"[DiKoDB].[dbo].[MySharedFiles]";
+        public static string wishlist = @"[DiKoDB].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
 
         public static void ConnecToDB()
@@ -39,7 +39,7 @@ namespace SQLDAL
             foreach (FileShareHandler fs in fileShareHandler)
             {
                 Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
-                SqlCommand cmd = new SqlCommand("INSERT INTO "+ database + "(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension +"','" + fs.FileSize + "','" + fs.FilePath +"');",myconn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO "+ database + "(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension +"','" + fs.FilePath + "','" + fs.FileSize +"');",myconn);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
@@ -47,7 +47,7 @@ namespace SQLDAL
         }
 
         public static void dropMySharedTable(){
-            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + database +";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE "+ database +" (FileName TEXT, FileExtension TEXT, FileSize TEXT,FilePath TEXT);",myconn);
+            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + database +";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE "+ database + " (FileName TEXT, FileExtension TEXT, FilePath TEXT,FileSize TEXT);", myconn);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
@@ -57,6 +57,27 @@ namespace SQLDAL
 
             return new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True;");
         }
+
+        public static void WriteWishList(List<FileShareHandler> fileShareHandler)
+        {
+            DropMyWishList();
+            foreach (FileShareHandler fs in fileShareHandler)
+            {
+                Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
+                SqlCommand cmd = new SqlCommand("INSERT INTO " + wishlist + "(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension + "','" + fs.FilePath + "','" + fs.FileSize + "');", myconn);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+            }
+        }
+        public static void DropMyWishList()
+        {
+            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + wishlist + ";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE " + wishlist + " (FileName TEXT, FileExtension TEXT, FilePath TEXT,FileSize TEXT);", myconn);
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }
+
 
     }
 }

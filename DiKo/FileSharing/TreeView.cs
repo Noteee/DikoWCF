@@ -14,6 +14,7 @@ namespace DiKo.FileSharing
 
     class Treeview
     {
+        private static bool programFirstStart = false;
         private static List<FileShareHandler> myFileShareList = new List<FileShareHandler>();
         private object dummyNode = null;
         private static List<FileShareHandler> myWishList = new List<FileShareHandler>();
@@ -94,27 +95,30 @@ namespace DiKo.FileSharing
         {
             // get the file attributes for file or directory
             FileAttributes attr = File.GetAttributes(@"" + path);
-
             //detect whether its a directory or file
             if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
             {
 
             }
-
+            if (SharedFileBrowsing.Browser.GetMySharedFiles() != null && programFirstStart == false)
+            {
+                foreach (FileShareHandler fsh in SharedFileBrowsing.Browser.GetMySharedFiles())
+                {
+                    dataGrid.Items.Add(new DataItem { fileName = fsh.FileName, fileEx = fsh.FileExtension, fileSize = fsh.FileSize, filePath = fsh.FilePath });
+                    WriteSharedFileList(dataGrid);
+                    currentDatagrid = this.dataGrid;
+                    programFirstStart = true;
+                }
+            }
             else
             {
                 try
                 {
-                    FileInfo file = new FileInfo(path);
-                    dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), filePath = file.FullName, fileSize = getSize(file.Length) });
-                    /* myFileShareList.Add(new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), file.FullName, getSize(file.Length).ToString()));
-                     foreach(DataItem v in dataGrid.Items)
-                     {
-                         Console.WriteLine(v.fileName);
-                     }
-                     */
-                     WriteSharedFileList(dataGrid);
-                     currentDatagrid = this.dataGrid;
+                        FileInfo file = new FileInfo(path);                       
+                        dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1),  fileSize = getSize(file.Length),filePath = file.FullName });
+                        CheckForItemInList(GetSharedFileList(currentDatagrid), new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), getSize(file.Length), file.FullName));
+                        WriteSharedFileList(dataGrid);
+                        currentDatagrid = this.dataGrid;
                     
                 }
                 catch
@@ -245,5 +249,19 @@ namespace DiKo.FileSharing
                 }
             }
         }
+        public static void CheckForItemInList(List<FileShareHandler> fshList,FileShareHandler checkItem)
+        {
+            foreach(FileShareHandler fsh in fshList)
+            {
+                if (fsh.Equals(checkItem))
+                {
+                    Console.WriteLine("bennevan");
+                }
+            }
+        }
+
+        
+       
+        
     }
 }
