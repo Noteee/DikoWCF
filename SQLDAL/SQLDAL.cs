@@ -17,7 +17,7 @@ namespace SQLDAL
 
              try
             {
-                SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\SQLEXPRESS;Integrated Security=True");
+                SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True;");
                 myConnection.Open();
                 Console.WriteLine("Yeah");
                 myConnection.Close();
@@ -53,7 +53,7 @@ namespace SQLDAL
 
         public static SqlConnection returnSqlConnection(){
 
-            return new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Integrated Security=True");
+            return new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True;");
         }
 
         public static void WriteWishListToDB(List<FileShareHandler> fileShareHandler)
