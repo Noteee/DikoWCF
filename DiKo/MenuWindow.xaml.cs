@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using SQLDAL;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
@@ -50,11 +51,7 @@ namespace DiKo
             refreshPanel.Visibility = Visibility.Hidden;
             searchPanel.Visibility = Visibility.Hidden;
         }
-
-        private void shareButton_Click(object sender, RoutedEventArgs e)
-        {
-            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
-        }
+      
 
         private void StartCloseTimer()
         {
@@ -73,11 +70,19 @@ namespace DiKo
             MessageBox.Show("Shared Files Added!");
         }
 
+        private void shareButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            StartCloseTimer();
+            loadingScreen.Show();
+            loadingScreen.Topmost = true;
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
+        }
 
         private void shareButtonLabel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             StartCloseTimer();
             loadingScreen.Show();
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
             loadingScreen.Topmost = true;
 
 
@@ -124,5 +129,6 @@ namespace DiKo
             downloadPath.SetEnvinronmentalVariable(downloadPath.getPath());
             
         }
+        
     }
 }

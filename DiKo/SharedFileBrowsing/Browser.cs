@@ -12,6 +12,7 @@ namespace DiKo.SharedFileBrowsing
     class Browser
     {
         private bool asc = false;
+        private bool programFirstStart = false;
 
 
         public bool SwitchBool()
@@ -99,15 +100,27 @@ namespace DiKo.SharedFileBrowsing
             while (myReader.Read())
             {
                 dataList.Add(new FileShareHandler(myReader["Name"].ToString(), myReader["Path"].ToString(), myReader["Extension"].ToString(), myReader["Size"].ToString()));
-
-
-
-
-
             }
             con.Close();
             return dataList;
         }
+        public static List<FileShareHandler> GetMySharedFiles()
+        {
+            List<FileShareHandler> dataList = new List<FileShareHandler>();
+            SqlDataReader myReader = null;
+            SqlConnection con = SQLDAL.SQLDAL.returnSqlConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + SQLDAL.SQLDAL.database, con);
+            myReader = cmd.ExecuteReader();
+            while (myReader.Read())
+            {
+                dataList.Add(new FileShareHandler(myReader["FileName"].ToString(), myReader["FileExtension"].ToString(), myReader["FilePath"].ToString(), myReader["FileSize"].ToString()));
+            }
+            con.Close();
+            return dataList;
+        }
+
+
 
     }
 }
