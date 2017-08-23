@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="LoadingScreen"         AllowsTransparency="True" WindowStyle="None" Background="Transparent">
     <Grid>
-        <Image gif:ImageBehavior.AnimatedSource="pack://application:,,,/Images/shareLoad.gif" Margin="-1,-2,1,6" RenderTransformOrigin="0.5,0.5" >
+        <Image gif:ImageBehavior.AnimatedSource="pack://application:,,,/Images/shareLoad.gif" Margin="-2,256,2,5" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

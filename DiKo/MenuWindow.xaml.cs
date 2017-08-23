@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SQLDAL;
 using System.Windows.Threading;
+using MahApps.Metro.Controls;
 
 namespace DiKo
 {
@@ -28,7 +29,7 @@ namespace DiKo
         {
             InitializeComponent();
             downloadPath.setPath(downloadPath.GetEnvironmentalVariable());
-            this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            //this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             FileData datagrid = new FileData(sharedGrid);
             FileData datagridShared = new FileData(itemsSharedWithMeGrid);
             datagrid.createDataGrid();

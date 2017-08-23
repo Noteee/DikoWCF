@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:DiKo"
         xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="DiKo.MenuWindow"
         mc:Ignorable="d"
         Title="MenuWindow" Height="auto" Width="auto" d:DesignWidth="1532.812" d:DesignHeight="843.835" MinHeight="300" MinWidth="1300">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
