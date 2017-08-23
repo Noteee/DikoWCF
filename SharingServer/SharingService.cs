@@ -23,7 +23,7 @@ namespace SharingServer
 
         public int Login(string machineName)
         {
-            foreach(var client in _connectedClients)
+            foreach (var client in _connectedClients)
             {
                 if (client.Key.ToLower() == machineName.ToLower())
                 {
@@ -38,17 +38,46 @@ namespace SharingServer
 
             _connectedClients.TryAdd(machineName, newClient);
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Client login: {0}", newClient.MachineName);
+            Console.ResetColor();
+
             return 0;
         }
 
         public void getTables(string machineName, List<FileShareHandler> files)
         {
-            foreach(var client in _connectedClients)
+            foreach (var client in _connectedClients)
             {
                 if (client.Key.ToLower() != machineName.ToLower())
                 {
                     client.Value.connection.getDataBaseTables(files);
                 }
+            }
+        }
+        public ConnectedClient connectedClients()
+        {
+            var establisedUserConnection = OperationContext.Current.GetCallbackChannel<IClient>();
+            foreach(var client in _connectedClients)
+            {
+                if (client.Value.connection == establisedUserConnection)
+                {
+                    return client.Value;
+                }
+            }
+            return null;
+        }
+
+        public void Logout()
+        {
+            ConnectedClient client = connectedClients();
+            if (client != null)
+            {
+                ConnectedClient removedClient;
+                _connectedClients.TryRemove(client.MachineName, out removedClient);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Client logoff: {0}", removedClient.MachineName);
+                Console.ResetColor();
             }
         }
     }

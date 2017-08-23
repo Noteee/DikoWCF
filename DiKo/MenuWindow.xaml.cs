@@ -124,12 +124,23 @@ namespace DiKo
 
             _channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
             Server = _channelFactory.CreateChannel();
+            int loginValue = Server.Login(Environment.MachineName);
+            //if (loginValue == 1)
+            //{
+              //  MessageBox.Show("Already running! 1 window is allowed!");
+            //}
+            //else
+            //{
+                List<FileShareHandler> testList = new List<FileShareHandler>();
+                testList.Add(new FileShareHandler("nev", "kiterjesztes", "eleres", "meret"));
+                testList.Add(new FileShareHandler("na", "ne", "mar", "megint"));
+                testList.Add(new FileShareHandler("ott", "vagyunk", "mar", "bleeh"));
+                Server.getTables(Environment.MachineName, testList);
+                fillSharedFiles(testList);
+                 
+            //}
             //MessageBox.Show(Server.hello());
-            List<FileShareHandler> testList = new List<FileShareHandler>();
-            testList.Add(new FileShareHandler( "név", "kiterjesztés", "elérés", "méret" ));
-            testList.Add(new FileShareHandler("na", "ne", "már", "megint"));
-            testList.Add(new FileShareHandler("ott", "vagyunk", "már", "?"));
-            Server.getTables(Environment.MachineName, testList);
+
             
         }
 
@@ -144,11 +155,27 @@ namespace DiKo
         public void fillSharedFiles(List<FileShareHandler> files)
         {
             DataGrid grid = itemsSharedWithMeGrid;
-            foreach (FileShareHandler file in files)
+            if (grid.Items.Count == 0)
             {
-                grid.Items.Add(new { file.FileName, file.FileExtension, file.FilePath, file.FileSize });
+                MessageBox.Show("No shared files right now!");
+               
+                
+            }
+            else
+            {
+                foreach (FileShareHandler file in files)
+                {
+                    grid.Items.Add(new { file.FileName, file.FileExtension, file.FilePath, file.FileSize });
+                }
             }
             
+            
+        }
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Server.Logout();
+
+            base.OnClosing(e);
         }
     }
 }
