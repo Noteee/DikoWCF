@@ -117,6 +117,7 @@ namespace DiKo
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+
         }
     }
 }
