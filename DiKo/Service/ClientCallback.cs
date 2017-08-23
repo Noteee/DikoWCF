@@ -5,6 +5,9 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using SQLDAL;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace DiKo.Service
 {
@@ -12,9 +15,10 @@ namespace DiKo.Service
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     class ClientCallback : IClient
     {
-        public void PlaceHolder()
+        
+        public void getDataBaseTables(List<FileShareHandler> files)
         {
-            throw new NotImplementedException();
+            ((MenuWindow)Application.Current.MainWindow).fillSharedFiles(files);
         }
     }
 }

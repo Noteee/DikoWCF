@@ -59,6 +59,10 @@
       <Project>{0935b979-e8fa-462d-9409-d46e1e961b96}</Project>
       <Name>SharingInterfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SQLDAL\SQLDAL.csproj">
+      <Project>{e5484087-3e18-41c8-b590-758a3958d1f5}</Project>
+      <Name>SQLDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

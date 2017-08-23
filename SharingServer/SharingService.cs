@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using SQLDAL;
 
 namespace SharingServer
 {
@@ -18,6 +19,7 @@ namespace SharingServer
         }*/
 
         public ConcurrentDictionary<string, ConnectedClient> _connectedClients = new ConcurrentDictionary<string, ConnectedClient>();
+
 
         public int Login(string machineName)
         {
@@ -37,6 +39,17 @@ namespace SharingServer
             _connectedClients.TryAdd(machineName, newClient);
 
             return 0;
+        }
+
+        public void getTables(string machineName, List<FileShareHandler> files)
+        {
+            foreach(var client in _connectedClients)
+            {
+                if (client.Key.ToLower() != machineName.ToLower())
+                {
+                    client.Value.connection.getDataBaseTables(files);
+                }
+            }
         }
     }
 }

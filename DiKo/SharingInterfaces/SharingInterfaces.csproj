@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -44,6 +45,12 @@
     <Compile Include="IClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ISharingService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SQLDAL\SQLDAL.csproj">
+      <Project>{e5484087-3e18-41c8-b590-758a3958d1f5}</Project>
+      <Name>SQLDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

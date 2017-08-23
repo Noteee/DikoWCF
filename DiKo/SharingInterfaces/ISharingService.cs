@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLDAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,9 +15,11 @@ namespace SharingInterfaces
         /*[OperationContract]
 
         string hello();*/
-
+        [OperationContract]
         int Login(string machineName);
-
-        void getTables(string machine);
+        [OperationContract]
+        void getTables(string machineName, List<FileShareHandler> files);
     }
+
+    
 }

@@ -18,6 +18,7 @@ using MahApps.Metro.Controls;
 using SharingInterfaces;
 using System.ServiceModel;
 using DiKo.Service;
+using static DiKo.FileSharing.Treeview;
 
 namespace DiKo
 {
@@ -123,7 +124,12 @@ namespace DiKo
 
             _channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
             Server = _channelFactory.CreateChannel();
-            //MessageBox.Show(Server.hello()); 
+            //MessageBox.Show(Server.hello());
+            List<FileShareHandler> testList = new List<FileShareHandler>();
+            testList.Add(new FileShareHandler( "név", "kiterjesztés", "elérés", "méret" ));
+            testList.Add(new FileShareHandler("na", "ne", "már", "megint"));
+            testList.Add(new FileShareHandler("ott", "vagyunk", "már", "?"));
+            Server.getTables(Environment.MachineName, testList);
             
         }
 
@@ -132,6 +138,16 @@ namespace DiKo
             downloadPath.getDownloadFolder();
             downloadPath.getPath();
             downloadPath.SetEnvinronmentalVariable(downloadPath.getPath());
+            
+        }
+
+        public void fillSharedFiles(List<FileShareHandler> files)
+        {
+            DataGrid grid = itemsSharedWithMeGrid;
+            foreach (FileShareHandler file in files)
+            {
+                grid.Items.Add(new { file.FileName, file.FileExtension, file.FilePath, file.FileSize });
+            }
             
         }
     }
