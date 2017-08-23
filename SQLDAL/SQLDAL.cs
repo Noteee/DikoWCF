@@ -9,7 +9,9 @@ namespace SQLDAL
 {
     public class SQLDAL
     {
-
+        public static string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
+        public static string database = @"[DiKo].[dbo].[SharedFiles]";
+        public static string wishlist = @"[DiKo].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
 
         public static void ConnecToDB()
@@ -17,7 +19,7 @@ namespace SQLDAL
 
              try
             {
-                SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;User ID=test;Password=testpassito;");
+                SqlConnection myConnection = new SqlConnection(path);
                 myConnection.Open();
                 Console.WriteLine("Yeah");
                 myConnection.Close();
@@ -33,19 +35,19 @@ namespace SQLDAL
         }
 
         public static void WriteListToDB(List<FileShareHandler> fileShareHandler)
-        {   DropMySharedTable();
+        {   dropMySharedTable();
             foreach (FileShareHandler fs in fileShareHandler)
             {
                 Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
-                SqlCommand cmd = new SqlCommand("INSERT INTO[DiKoDB].[dbo].[MySharedFiles](FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension +"','" + fs.FileSize + "','" + fs.FilePath +"');",myconn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO "+ database + "(FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension +"','" + fs.FileSize + "','" + fs.FilePath +"');",myconn);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
             }
         }
 
-        public static void DropMySharedTable(){
-            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS [DiKoDB].[dbo].[MySharedFiles];IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE [DiKoDB].[dbo].[MySharedFiles] (FileName TEXT, FileExtension TEXT, FileSize TEXT,FilePath TEXT);",myconn);
+        public static void dropMySharedTable(){
+            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + database +";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE "+ database +" (FileName TEXT, FileExtension TEXT, FileSize TEXT,FilePath TEXT);",myconn);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
@@ -53,29 +55,8 @@ namespace SQLDAL
 
         public static SqlConnection returnSqlConnection(){
 
-            return new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Integrated Security=True");
-        }
-
-        public static void WriteWishListToDB(List<FileShareHandler> fileShareHandler)
-        {
-            DropMyWishList();
-            foreach (FileShareHandler fs in fileShareHandler)
-            {
-                Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
-                SqlCommand cmd = new SqlCommand("INSERT INTO [DiKoDB].[dbo].[WishList](FileName,FileExtension,FilePath,FileSize) VALUES('" + fs.FileName + "','" + fs.FileExtension + "','" + fs.FileSize + "','" + fs.FilePath + "');", myconn);
-                cmd.Connection.Open();
-                cmd.ExecuteNonQuery();
-                cmd.Connection.Close();
-            }
-        }
-        public static void DropMyWishList()
-        {
-            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS [DiKoDB].[dbo].[WishList];IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='WishList' AND xtype='U')CREATE TABLE [DiKoDB].[dbo].[WishList] (FileName TEXT, FileExtension TEXT, FileSize TEXT,FilePath TEXT);", myconn);
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
-        }
-     
+            return new SqlConnection(path);
+        }                                                        
 
     }
 }
