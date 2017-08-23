@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -67,6 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Service\ClientCallback.cs" />
     <Compile Include="SharedFileBrowsing\Browser.cs" />
     <Page Include="LoadingScreen.xaml">
       <SubType>Designer</SubType>
@@ -160,6 +162,10 @@
     <ProjectReference Include="..\SQLDAL\SQLDAL.csproj">
       <Project>{e5484087-3e18-41c8-b590-758a3958d1f5}</Project>
       <Name>SQLDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="SharingInterfaces\SharingInterfaces.csproj">
+      <Project>{0935b979-e8fa-462d-9409-d46e1e961b96}</Project>
+      <Name>SharingInterfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,9 +23,25 @@ namespace SQLDAL
        
         }
 
-        public string FileName { get => fileName; set => fileName = value; }
-        public string FileExtension { get => fileExtension; set => fileExtension = value; }
-        public string FilePath { get => filePath; set => filePath = value; }
-        public string FileSize { get => fileSize; set => fileSize = value; }
+        public string FileName
+        {
+            get { return fileName; }
+            set { fileName = value; }
+        }
+        public string FileExtension
+        {
+            get { return fileExtension; }
+            set { fileExtension = value; }
+        }
+        public string FilePath
+        {
+            get { return filePath; }
+            set { filePath = value; }
+        }
+        public string FileSize
+        {
+            get { return FileSize; }
+            set { fileSize = value; }
+        }
     }
 }

@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using SQLDAL;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
+using SharingInterfaces;
+using System.ServiceModel;
+using DiKo.Service;
 
 namespace DiKo
 {
@@ -23,6 +26,9 @@ namespace DiKo
     /// </summary>
     public partial class MenuWindow : Window
     {
+        public static ISharingService Server;
+        private static DuplexChannelFactory<ISharingService> _channelFactory;
+
         getDownloadPath downloadPath = new getDownloadPath();
         LoadingScreen loadingScreen = new LoadingScreen();
         public MenuWindow()
@@ -114,6 +120,10 @@ namespace DiKo
             wishListPanel.Visibility = Visibility.Visible;
             refreshPanel.Visibility = Visibility.Visible;
             searchPanel.Visibility = Visibility.Visible;
+
+            _channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
+            Server = _channelFactory.CreateChannel();
+            //MessageBox.Show(Server.hello()); 
             
         }
 
