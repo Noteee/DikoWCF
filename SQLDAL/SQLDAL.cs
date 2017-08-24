@@ -35,7 +35,7 @@ namespace SQLDAL
         }
 
         public static void WriteListToDB(List<FileShareHandler> fileShareHandler)
-        {   dropMySharedTable();
+        {   DropMySharedTable();
             foreach (FileShareHandler fs in fileShareHandler)
             {
                 Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
@@ -46,7 +46,7 @@ namespace SQLDAL
             }
         }
 
-        public static void dropMySharedTable(){
+        public static void DropMySharedTable(){
             SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + database +";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE "+ database + " (FileName TEXT, FileExtension TEXT, FilePath TEXT,FileSize TEXT);", myconn);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
