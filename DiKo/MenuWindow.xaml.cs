@@ -127,16 +127,14 @@ namespace DiKo
             int loginValue = Server.Login(Environment.MachineName);
             //if (loginValue == 1)
             //{
-              //  MessageBox.Show("Already running! 1 window is allowed!");
+            //  MessageBox.Show("Already running! 1 window is allowed!");
             //}
             //else
             //{
-                List<FileShareHandler> testList = new List<FileShareHandler>();
-                testList.Add(new FileShareHandler("nev", "kiterjesztes", "eleres", "meret"));
-                testList.Add(new FileShareHandler("na", "ne", "mar", "megint"));
-                testList.Add(new FileShareHandler("ott", "vagyunk", "mar", "bleeh"));
-                Server.getTables(Environment.MachineName, testList);
-                fillSharedFiles(testList);
+            List<FileShareHandler> getData = new List<FileShareHandler>();
+                Server.getTables(Environment.MachineName, getData);
+                fillSharedFiles(getData);
+            MessageBox.Show(Server.Clients().ToString());
                  
             //}
             //MessageBox.Show(Server.hello());
@@ -154,7 +152,9 @@ namespace DiKo
 
         public void fillSharedFiles(List<FileShareHandler> files)
         {
+            
             DataGrid grid = itemsSharedWithMeGrid;
+            grid.Items.Clear();
             if (files.Count == 0)
             {
                 MessageBox.Show("No shared files right now!");
@@ -165,6 +165,7 @@ namespace DiKo
             {
                 foreach (FileShareHandler file in files)
                 {
+                    
                     grid.Items.Add(new DataItem{ fileName = file.FileName, fileEx = file.FileExtension, filePath = file.FilePath, fileSize =  file.FileSize });
                 }
             }

@@ -20,5 +20,6 @@ namespace DiKo.Service
         {
             ((MenuWindow)Application.Current.MainWindow).fillSharedFiles(files);
         }
+
     }
 }

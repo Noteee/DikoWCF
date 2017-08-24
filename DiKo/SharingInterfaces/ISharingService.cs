@@ -21,7 +21,8 @@ namespace SharingInterfaces
         void getTables(string machineName, List<FileShareHandler> files);
         [OperationContract]
         void Logout();
-
+        [OperationContract]
+        int Clients();
     }
 
     

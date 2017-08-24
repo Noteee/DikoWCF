@@ -75,10 +75,16 @@ namespace SharingServer
             {
                 ConnectedClient removedClient;
                 _connectedClients.TryRemove(client.MachineName, out removedClient);
+
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("Client logoff: {0} @ {1}", removedClient.MachineName, DateTime.UtcNow);
                 Console.ResetColor();
             }
+        }
+
+        public int Clients()
+        {
+            return _connectedClients.Count;
         }
     }
 }
