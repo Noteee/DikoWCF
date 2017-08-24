@@ -131,9 +131,9 @@ namespace DiKo
             //}
             //else
             //{
-            List<FileShareHandler> getData = new List<FileShareHandler>();
+            List<FileShareHandler> getData = SharedFileBrowsing.Browser.GetMySharedFiles();
                 Server.getTables(Environment.MachineName, getData);
-                fillSharedFiles(getData);
+            fillSharedFiles(getData);
             MessageBox.Show(Server.Clients().ToString());
                  
             //}
