@@ -39,7 +39,7 @@ namespace SharingServer
             _connectedClients.TryAdd(machineName, newClient);
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Client login: {0}", newClient.MachineName);
+            Console.WriteLine("Client login: {0} @ {1}", newClient.MachineName, DateTime.UtcNow);
             Console.ResetColor();
 
             return 0;
@@ -75,8 +75,8 @@ namespace SharingServer
             {
                 ConnectedClient removedClient;
                 _connectedClients.TryRemove(client.MachineName, out removedClient);
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Client logoff: {0}", removedClient.MachineName);
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("Client logoff: {0} @ {1}", removedClient.MachineName, DateTime.UtcNow);
                 Console.ResetColor();
             }
         }

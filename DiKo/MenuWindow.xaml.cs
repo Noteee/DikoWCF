@@ -155,7 +155,7 @@ namespace DiKo
         public void fillSharedFiles(List<FileShareHandler> files)
         {
             DataGrid grid = itemsSharedWithMeGrid;
-            if (grid.Items.Count == 0)
+            if (files.Count == 0)
             {
                 MessageBox.Show("No shared files right now!");
                
@@ -165,7 +165,7 @@ namespace DiKo
             {
                 foreach (FileShareHandler file in files)
                 {
-                    grid.Items.Add(new { file.FileName, file.FileExtension, file.FilePath, file.FileSize });
+                    grid.Items.Add(new DataItem{ fileName = file.FileName, fileEx = file.FileExtension, filePath = file.FilePath, fileSize =  file.FileSize });
                 }
             }
             
