@@ -16,13 +16,15 @@ namespace SharingInterfaces
 
         string hello();*/
         [OperationContract]
-        int Login(string machineName);
+        int Login(List<string> uri);
         [OperationContract]
         void getTables(string machineName, List<FileShareHandler> files);
         [OperationContract]
         void Logout();
         [OperationContract]
         int Clients();
+        [OperationContract]
+        string Ping();
     }
 
     

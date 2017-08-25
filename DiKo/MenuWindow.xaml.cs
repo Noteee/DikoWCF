@@ -19,6 +19,10 @@ using SharingInterfaces;
 using System.ServiceModel;
 using DiKo.Service;
 using static DiKo.FileSharing.Treeview;
+using System.ServiceModel.Discovery;
+using DiKo.Service;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace DiKo
 {
@@ -27,6 +31,13 @@ namespace DiKo
     /// </summary>
     public partial class MenuWindow : Window
     {
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AttachConsole(int dwProcessId);
+
+        private const int ATTACH_PARENT_PROCESS = -1;
+
+        StreamWriter _stdOutWriter;
+
         public static ISharingService Server;
         private static DuplexChannelFactory<ISharingService> _channelFactory;
 
@@ -122,24 +133,36 @@ namespace DiKo
             refreshPanel.Visibility = Visibility.Visible;
             searchPanel.Visibility = Visibility.Visible;
 
-            _channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
+            /*_channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
             Server = _channelFactory.CreateChannel();
-            int loginValue = Server.Login(Environment.MachineName);
+            int loginValue = Server.Login(Environment.MachineName);*/
+            SharingConnection conn = new SharingConnection();
+            conn.Sharing_SetupChannel();
+            conn.Sharing_DiscoverChannel();
+
+            List<string> connectedClients = conn.urisList();
+            foreach(string uri in connectedClients)
+            {
+                Console.WriteLine(uri);
+            }
+            
             //if (loginValue == 1)
             //{
             //  MessageBox.Show("Already running! 1 window is allowed!");
             //}
             //else
             //{
-            List<FileShareHandler> getData = SharedFileBrowsing.Browser.GetMySharedFiles();
-                Server.getTables(Environment.MachineName, getData);
-            fillSharedFiles(getData);
-            MessageBox.Show(Server.Clients().ToString());
-                 
-            //}
-            //MessageBox.Show(Server.hello());
-
+            //List<FileShareHandler> getData = SharedFileBrowsing.Browser.GetMySharedFiles();
+            //    Server.getTables(Environment.MachineName, getData);
+            /*List<FileShareHandler> testList = new List<FileShareHandler>();
+            testList.Add(new FileShareHandler("nev", "kiterjesztes", "eleres", "meret"));
+            testList.Add(new FileShareHandler("na", "ne", "mar", "megint"));
+            testList.Add(new FileShareHandler("ott", "vagyunk", "mar", "bleeh"));
+            fillSharedFiles(testList);*/
             
+            
+            //}
+           
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -178,5 +201,7 @@ namespace DiKo
 
             base.OnClosing(e);
         }
+
+
     }
 }
