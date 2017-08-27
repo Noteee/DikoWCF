@@ -66,7 +66,7 @@ namespace DiKo
             wishListPanel.Visibility = Visibility.Hidden;
             refreshPanel.Visibility = Visibility.Hidden;
             searchPanel.Visibility = Visibility.Hidden;
-            updateTimerForClients();
+            
         }
 
         private void shareButton_Click(object sender, RoutedEventArgs e)
@@ -144,9 +144,9 @@ namespace DiKo
             Console.WriteLine(conn.countConnectedChannels().ToString());
             channels = conn.countConnectedChannels();
 
+            updateTimerForClients();
 
-            
-            
+
             //if (loginValue == 1)
             //{
             //  MessageBox.Show("Already running! 1 window is allowed!");
@@ -160,10 +160,10 @@ namespace DiKo
             testList.Add(new FileShareHandler("na", "ne", "mar", "megint"));
             testList.Add(new FileShareHandler("ott", "vagyunk", "mar", "bleeh"));
             fillSharedFiles(testList);*/
-            
-            
+
+
             //}
-           
+
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
