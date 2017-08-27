@@ -110,7 +110,7 @@ namespace DiKo.SharedFileBrowsing
             SqlDataReader myReader = null;
             SqlConnection con = SQLDAL.SQLDAL.returnSqlConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"SELECT * FROM" + SQLDAL.SQLDAL.database, con);
+            SqlCommand cmd = new SqlCommand(@"SELECT * FROM " + SQLDAL.SQLDAL.database, con);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {

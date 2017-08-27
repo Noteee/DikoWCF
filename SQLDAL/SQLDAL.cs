@@ -10,7 +10,7 @@ namespace SQLDAL
     public class SQLDAL
     {
         public static string path = @"Data Source=NINA-PC\DIKO;Integrated Security=True";
-        public static string database = @"NINA-PC\DIKO.[dbo].[MySharedFiles]";
+        public static string database = @"[dbo].[MySharedFiles]";
         public static string wishlist = @"[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
 

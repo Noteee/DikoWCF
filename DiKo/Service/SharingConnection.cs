@@ -47,18 +47,11 @@ namespace DiKo.Service
                 }
                 
             }
-            // here is the really nasty part
-            // i am just returning the first channel, but it may not work.
-            // you have to do some logic to decide which uri to use from the discovered uris
-            // for example, you may discover "127.0.0.1", but that one is obviously useless.
-            // also, catch exceptions when no endpoints are found and try again.
 
         }
         public void Sharing_SetupChannel()
         {
-              /*_channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
-            Server = _channelFactory.CreateChannel();
-            */
+
             var binding = new WSDualHttpBinding(WSDualHttpSecurityMode.None);
             var factory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), binding);
             string hostname = System.Environment.MachineName;
@@ -67,15 +60,7 @@ namespace DiKo.Service
             EndpointAddress ea = new EndpointAddress(uri.Uri);
             channel = factory.CreateChannel(ea);
             Console.WriteLine("channel created");
-            //Console.WriteLine("pinging host");
-            //string result = channel.Ping();
-            //Console.WriteLine("ping result = " + result);
-        }
-        public void Sharing_Ping()
-        {
-            Console.WriteLine("pinging host");
-            string result = channel.Ping();
-            Console.WriteLine("ping result = " + result);
+
         }
 
     }

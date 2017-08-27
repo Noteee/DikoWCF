@@ -17,14 +17,7 @@ namespace SharingServer
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.Single)]
     public class SharingService : ISharingService
     {
-        public const string magicString = "djeut73bch58sb4"; // this is random, just to see if you get the right result
-        public string Ping() { return magicString; }
-        /*public string hello()
-        {
-            return "Hello";
-        }*/
-
-        public ConcurrentDictionary<string, ConnectedClient> _connectedClients = new ConcurrentDictionary<string, ConnectedClient>();
+       public ConcurrentDictionary<string, ConnectedClient> _connectedClients = new ConcurrentDictionary<string, ConnectedClient>();
 
         public void hostOpen()
         {
@@ -57,16 +50,12 @@ namespace SharingServer
 
             {
                 Uri getUri = new Uri(uri);
-                if (_connectedClients.ContainsKey(getUri.Host))
-                {
-                   
-                }
-                else
+                if (!_connectedClients.ContainsKey(getUri.Host))
                 {
                     ConnectedClient newClient = new ConnectedClient();
-                 
+
                     newClient.MachineName = getUri.Host;
-                    
+
                     _connectedClients.TryAdd(getUri.Host, newClient);
                     if (newClient.MachineName != Environment.MachineName.ToLower())
                     {
@@ -74,12 +63,11 @@ namespace SharingServer
                         popup.TitleText = "Notification";
                         popup.ContentText = ("Client is online: " + newClient.MachineName + " @ " + DateTime.UtcNow);
                         popup.ContentColor = System.Drawing.Color.Blue;
-                        popup.ContentFont = new Font("Tahoma", 15);
+                        popup.ContentFont = new Font("Tahoma", 12);
                         popup.Popup();
                     }
-
-
                 }
+          
             }
                         
             
@@ -112,13 +100,13 @@ namespace SharingServer
         public void Logout(List<string> uris)
         {
             List<string> getUris = new List<string>();
-                foreach (string uri in uris)
+            foreach (string uri in uris)
 
-                {
-                    Uri getUri = new Uri(uri);
+            {
+                Uri getUri = new Uri(uri);
                 getUris.Add(getUri.Host);
-                }
-            foreach(var client in _connectedClients)
+            }
+            foreach (var client in _connectedClients)
             {
                 if (!getUris.Contains(client.Key))
                 {
@@ -130,38 +118,13 @@ namespace SharingServer
                         popup.TitleText = "Notification";
                         popup.ContentText = ("Client is offline: " + client.Key + " @ " + DateTime.UtcNow);
                         popup.ContentColor = System.Drawing.Color.Magenta;
-                        popup.ContentFont = new Font("Tahoma", 15);
+                        popup.ContentFont = new Font("Tahoma", 12);
                         popup.Popup();
                     }
                 }
-                
+
             }
-           
 
-
-           /*
-            if (client != null)
-            {
-                ConnectedClient removedClient;
-                _connectedClients.TryRemove(Environment.MachineName.ToLower(), out removedClient);
-
-                if (client.MachineName != Environment.MachineName.ToLower())
-                {
-                    PopupNotifier popup = new PopupNotifier();
-                    popup.TitleText = "Notification";
-                    popup.ContentText = ("Client is offline: " + client.MachineName + " @ " + DateTime.UtcNow);
-                    popup.ContentColor = System.Drawing.Color.Magenta;
-                    popup.ContentFont = new Font("Tahoma", 15);
-                    popup.Popup();
-                }
-            }*/
         }
-
-        public int Clients()
-        {
-            return _connectedClients.Count;
-        }
-
-
     }
 }

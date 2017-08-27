@@ -21,10 +21,7 @@ namespace SharingInterfaces
         void getTables(string machineName, List<FileShareHandler> files);
         [OperationContract]
         void Logout(List<string> uri);
-        [OperationContract]
-        int Clients();
-        [OperationContract]
-        string Ping();
+
     }
 
     

@@ -133,36 +133,8 @@ namespace DiKo
             refreshPanel.Visibility = Visibility.Visible;
             searchPanel.Visibility = Visibility.Visible;
 
-            /*_channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
-            Server = _channelFactory.CreateChannel();
-            int loginValue = Server.Login(Environment.MachineName);*/
-            conn.Sharing_SetupChannel();
-            conn.Sharing_DiscoverChannel();
 
-            connectedClients = conn.getUrisList();
-            int loginvalue = Server.Login(connectedClients);
-            Console.WriteLine(conn.countConnectedChannels().ToString());
-            channels = conn.countConnectedChannels();
-
-            updateTimerForClients();
-
-
-            //if (loginValue == 1)
-            //{
-            //  MessageBox.Show("Already running! 1 window is allowed!");
-            //}
-            //else
-            //{
-            //List<FileShareHandler> getData = SharedFileBrowsing.Browser.GetMySharedFiles();
-            //    Server.getTables(Environment.MachineName, getData);
-            /*List<FileShareHandler> testList = new List<FileShareHandler>();
-            testList.Add(new FileShareHandler("nev", "kiterjesztes", "eleres", "meret"));
-            testList.Add(new FileShareHandler("na", "ne", "mar", "megint"));
-            testList.Add(new FileShareHandler("ott", "vagyunk", "mar", "bleeh"));
-            fillSharedFiles(testList);*/
-
-
-            //}
+            getClientConnected();
 
         }
 
@@ -173,7 +145,18 @@ namespace DiKo
             downloadPath.SetEnvinronmentalVariable(downloadPath.getPath());
             
         }
+        public void getClientConnected()
+        {
+            conn.Sharing_SetupChannel();
+            conn.Sharing_DiscoverChannel();
 
+            connectedClients = conn.getUrisList();
+            int loginvalue = Server.Login(connectedClients);
+            Console.WriteLine(conn.countConnectedChannels().ToString());
+            channels = conn.countConnectedChannels();
+
+            updateTimerForClients();
+        }
         public void fillSharedFiles(List<FileShareHandler> files)
         {
             
@@ -214,30 +197,17 @@ namespace DiKo
             {
                 connectedClients = connectedClientsUpdate;
                 channels = channelUpdate;
-                MessageBox.Show(channels.ToString());
                 int value = Server.Login(connectedClients);
             }
             if (channelUpdate < channels)
             {
                 connectedClients = connectedClientsUpdate;
                 channels = channelUpdate;
-                MessageBox.Show(channels.ToString());
                 Server.Logout(connectedClients);
-                Console.WriteLine(channels);
 
             }
 
         }
-
-        /*protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            Server.Logout();
-
-            base.OnClosing(e);
-        }*/
-
-
-
 
     }
 }
