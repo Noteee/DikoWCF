@@ -53,16 +53,19 @@ namespace SharingServer
         {
 
             foreach(string uri in uris)
+
             {
-                if (_connectedClients.ContainsKey(Environment.MachineName))
+                Uri getUri = new Uri(uri);
+                if (_connectedClients.ContainsKey(getUri.Host))
                 {
-                    return 1;
+                   
                 }
                 else
                 {
                     ConnectedClient newClient = new ConnectedClient();
-                    Uri getUri = new Uri(uri);
+                    
                     newClient.MachineName = getUri.Host;
+                    newClient.LoginDate = DateTime.UtcNow;
                     _connectedClients.TryAdd(getUri.Host, newClient);
                     if (newClient.MachineName != Environment.MachineName.ToLower())
                     {
