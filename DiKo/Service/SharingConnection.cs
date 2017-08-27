@@ -30,7 +30,7 @@ namespace DiKo.Service
             return urisConnected.Count;
         }
 
-        public Uri Sharing_DiscoverChannel()
+        public void Sharing_DiscoverChannel()
         {
             urisConnected.Clear();
             var dc = new DiscoveryClient(new UdpDiscoveryEndpoint());
@@ -45,10 +45,6 @@ namespace DiKo.Service
                     
                     Console.WriteLine(edm.Address.Uri.ToString());
                 }
-                if (edm.Address.Uri.ToString().Contains(Environment.MachineName.ToLower()))
-                {
-                    return edm.Address.Uri;
-                }
                 
             }
             // here is the really nasty part
@@ -56,8 +52,6 @@ namespace DiKo.Service
             // you have to do some logic to decide which uri to use from the discovered uris
             // for example, you may discover "127.0.0.1", but that one is obviously useless.
             // also, catch exceptions when no endpoints are found and try again.
-
-            return fr.Endpoints[0].Address.Uri;
 
         }
         public void Sharing_SetupChannel()
@@ -67,9 +61,10 @@ namespace DiKo.Service
             */
             var binding = new WSDualHttpBinding(WSDualHttpSecurityMode.None);
             var factory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), binding);
-            var uri = Sharing_DiscoverChannel();
+            string hostname = System.Environment.MachineName;
+            var uri = new UriBuilder("http", hostname, 9001, "SharingService");
             Console.WriteLine("creating channel to " + uri.ToString());
-            EndpointAddress ea = new EndpointAddress(uri);
+            EndpointAddress ea = new EndpointAddress(uri.Uri);
             channel = factory.CreateChannel(ea);
             Console.WriteLine("channel created");
             //Console.WriteLine("pinging host");
