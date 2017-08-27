@@ -58,20 +58,25 @@ namespace SharingServer
                 {
                     return 1;
                 }
+                else
+                {
+                    ConnectedClient newClient = new ConnectedClient();
+                    Uri getUri = new Uri(uri);
+                    newClient.MachineName = getUri.Host;
+                    _connectedClients.TryAdd(getUri.Host, newClient);
+                    if (newClient.MachineName != Environment.MachineName.ToLower())
+                    {
+                        PopupNotifier popup = new PopupNotifier();
+                        popup.TitleText = "Notification";
+                        popup.ContentText = ("Client login: " + newClient.MachineName + " @ " + DateTime.UtcNow);
+                        popup.ContentColor = System.Drawing.Color.Blue;
+                        popup.Popup();
+                    }
+
+
+                }
             }
-            
-            
-            ConnectedClient newClient = new ConnectedClient();
-            newClient.MachineName = Environment.MachineName;
-            _connectedClients.TryAdd(Environment.MachineName, newClient);
-             if (newClient.MachineName != Environment.MachineName )
-            {
-                PopupNotifier popup = new PopupNotifier();
-                popup.TitleText = "Notification";
-                popup.ContentText = ("Client login: " + newClient.MachineName + " @ " + DateTime.UtcNow);
-                popup.ContentColor = System.Drawing.Color.Blue;
-                popup.Popup();
-            }
+                        
             
             return 0;
         }
