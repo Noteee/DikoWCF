@@ -97,14 +97,14 @@ namespace SharingServer
         }
         public ConnectedClient connectedClients()
         {
-           // var establisedUserConnection = OperationContext.Current.GetCallbackChannel<IClient>();
-           // foreach(var client in _connectedClients)
-           // {
-           //     if (client.Value.connection == establisedUserConnection)
+            var establisedUserConnection = OperationContext.Current.GetCallbackChannel<IClient>();
+             foreach(var client in _connectedClients)
+            {
+                if (client.Value.connection == establisedUserConnection)
                 {
-           //         return client.Value;
+                    return client.Value;
                 }
-           // }
+            }
             return null;
         }
 
@@ -114,7 +114,7 @@ namespace SharingServer
             if (client != null)
             {
                 ConnectedClient removedClient;
-                _connectedClients.TryRemove(client.MachineName, out removedClient);
+                _connectedClients.TryRemove(Environment.MachineName.ToLower(), out removedClient);
 
                 if (client.MachineName != Environment.MachineName.ToLower())
                 {

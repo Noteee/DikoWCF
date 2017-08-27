@@ -210,12 +210,19 @@ namespace DiKo
             List<string> connectedClientsUpdate = conn.getUrisList();
             int channelUpdate = conn.countConnectedChannels();
 
-            if (channelUpdate != channels)
+            if (channelUpdate > channels)
             {
                 connectedClients = connectedClientsUpdate;
                 channels = channelUpdate;
                 MessageBox.Show(channels.ToString());
                 int value = Server.Login(connectedClients);
+            }
+            if (channelUpdate < channels)
+            {
+                connectedClients = connectedClientsUpdate;
+                channels = channelUpdate;
+                MessageBox.Show(channels.ToString());
+                Server.Logout();
             }
 
         }
