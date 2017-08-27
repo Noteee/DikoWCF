@@ -222,17 +222,17 @@ namespace DiKo
                 connectedClients = connectedClientsUpdate;
                 channels = channelUpdate;
                 MessageBox.Show(channels.ToString());
-                Server.Logout();
+                Server.Logout(connectedClients);
             }
 
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        /*protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             Server.Logout();
 
             base.OnClosing(e);
-        }
+        }*/
 
 
 

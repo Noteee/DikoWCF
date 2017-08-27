@@ -20,7 +20,7 @@ namespace SharingInterfaces
         [OperationContract]
         void getTables(string machineName, List<FileShareHandler> files);
         [OperationContract]
-        void Logout();
+        void Logout(List<string> uri);
         [OperationContract]
         int Clients();
         [OperationContract]

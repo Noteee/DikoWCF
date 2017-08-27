@@ -64,8 +64,9 @@ namespace SharingServer
                 else
                 {
                     ConnectedClient newClient = new ConnectedClient();
-                    
+                 
                     newClient.MachineName = getUri.Host;
+                    
                     _connectedClients.TryAdd(getUri.Host, newClient);
                     if (newClient.MachineName != Environment.MachineName.ToLower())
                     {
@@ -85,22 +86,22 @@ namespace SharingServer
             return 0;
         }
 
-        public void getTables(string machineName, List<FileShareHandler> files)
-        {
+        public void getTables(string machineName, List<FileShareHandler> files) { 
+        /*{
             foreach (var client in _connectedClients)
             {
                 if (client.Key.ToLower() != machineName.ToLower())
                 {
                     client.Value.connection.getDataBaseTables(files);
                 }
-            }
+            }*/
         }
         public ConnectedClient connectedClients()
         {
-            var establisedUserConnection = OperationContext.Current.GetCallbackChannel<IClient>();
+           
              foreach(var client in _connectedClients)
             {
-                if (client.Value.connection == establisedUserConnection)
+                if (client.Value.connection == null)
                 {
                     return client.Value;
                 }
@@ -108,9 +109,37 @@ namespace SharingServer
             return null;
         }
 
-        public void Logout()
+        public void Logout(List<string> uris)
         {
-            ConnectedClient client = connectedClients();
+            List<string> getUris = new List<string>();
+                foreach (string uri in uris)
+
+                {
+                    Uri getUri = new Uri(uri);
+                getUris.Add(getUri.Host);
+                }
+            foreach(var client in _connectedClients)
+            {
+                if (!getUris.Contains(client.Key))
+                {
+                    ConnectedClient removedClient;
+                    _connectedClients.TryRemove(client.Key, out removedClient);
+                    if (client.Key != Environment.MachineName.ToLower())
+                    {
+                        PopupNotifier popup = new PopupNotifier();
+                        popup.TitleText = "Notification";
+                        popup.ContentText = ("Client is offline: " + client.Key + " @ " + DateTime.UtcNow);
+                        popup.ContentColor = System.Drawing.Color.Magenta;
+                        popup.ContentFont = new Font("Tahoma", 15);
+                        popup.Popup();
+                    }
+                }
+                
+            }
+           
+
+
+           /*
             if (client != null)
             {
                 ConnectedClient removedClient;
@@ -125,7 +154,7 @@ namespace SharingServer
                     popup.ContentFont = new Font("Tahoma", 15);
                     popup.Popup();
                 }
-            }
+            }*/
         }
 
         public int Clients()
