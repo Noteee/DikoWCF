@@ -223,6 +223,8 @@ namespace DiKo
                 channels = channelUpdate;
                 MessageBox.Show(channels.ToString());
                 Server.Logout(connectedClients);
+                Console.WriteLine(channels);
+
             }
 
         }

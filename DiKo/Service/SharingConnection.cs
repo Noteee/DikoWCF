@@ -32,6 +32,7 @@ namespace DiKo.Service
 
         public Uri Sharing_DiscoverChannel()
         {
+            urisConnected.Clear();
             var dc = new DiscoveryClient(new UdpDiscoveryEndpoint());
             FindCriteria fc = new FindCriteria(typeof(ISharingService));
             fc.Duration = TimeSpan.FromSeconds(5);
