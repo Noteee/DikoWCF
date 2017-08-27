@@ -13,17 +13,23 @@ namespace DiKo.Service
     class SharingConnection
     {
         private ISharingService channel;
-        private List<string> urisConnected = new List<string>();
+        public static List<string> urisConnected = new List<string>();
 
-        public void addUrisToList (string  uri, List<string> list)
+        public void addUrisToList (string  uri)
         {
-            list.Add(uri);
+            urisConnected.Add(uri);
         }
 
-        public List<string> urisList()
+        public List<string> getUrisList()
         {
             return urisConnected;
         }
+
+        public int countConnectedChannels()
+        {
+            return urisConnected.Count;
+        }
+
         public Uri Sharing_DiscoverChannel()
         {
             var dc = new DiscoveryClient(new UdpDiscoveryEndpoint());
@@ -34,7 +40,12 @@ namespace DiKo.Service
             {
                 if (!urisConnected.Contains(edm.Address.Uri.ToString()) && edm.Address.Uri.ToString().StartsWith("http"))
                 {
-                    addUrisToList(edm.Address.Uri.ToString(), urisConnected);
+                    addUrisToList(edm.Address.Uri.ToString());
+                    Console.WriteLine(edm.Address.Uri.ToString());
+                }
+                if (edm.Address.Uri.ToString().Contains(Environment.MachineName.ToLower()))
+                {
+                    return edm.Address.Uri;
                 }
                 
             }
@@ -43,7 +54,7 @@ namespace DiKo.Service
             // you have to do some logic to decide which uri to use from the discovered uris
             // for example, you may discover "127.0.0.1", but that one is obviously useless.
             // also, catch exceptions when no endpoints are found and try again.
-            
+
             return fr.Endpoints[0].Address.Uri;
 
         }

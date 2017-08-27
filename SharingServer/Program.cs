@@ -15,13 +15,17 @@ namespace SharingServer
 {
     class Program
     {
-        public static SharingService _server;
+        public static SharingService _server = new SharingService();
 
  
         static void Main(string[] args)
         {
-           
-            _server = new SharingService();
+
+              _server.hostOpen();
+
+                Console.WriteLine("Host open ...");
+                Console.ReadLine();
+            
             /*using (ServiceHost host = new ServiceHost(_server))
             {
 
@@ -35,9 +39,7 @@ namespace SharingServer
                 Console.WriteLine("Server is running...");
                 Console.ReadLine();
             }*/
-            _server.hostOpen() ;
-            
-           
+
         }
 
        

@@ -9,6 +9,7 @@ using System.Text;
 using SQLDAL;
 using System.ServiceModel.Discovery;
 using System.ServiceModel.Description;
+using Tulpep.NotificationWindow;
 
 namespace SharingServer
 {
@@ -45,8 +46,7 @@ namespace SharingServer
             var binding = new WSDualHttpBinding(WSDualHttpSecurityMode.None);
             h.AddServiceEndpoint(typeof(ISharingService), binding, "");
             h.Open();
-            Console.WriteLine("Host open...");
-            Console.ReadLine();
+            
         }
 
         public int Login(List<string> uris)
@@ -60,18 +60,19 @@ namespace SharingServer
                 }
             }
             
-            var establisedUserConnection = OperationContext.Current.GetCallbackChannel<IClient>();
-
+            
             ConnectedClient newClient = new ConnectedClient();
-            newClient.connection = establisedUserConnection;
             newClient.MachineName = Environment.MachineName;
-
             _connectedClients.TryAdd(Environment.MachineName, newClient);
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Client login: {0} @ {1}", newClient.MachineName, DateTime.UtcNow);
-            Console.ResetColor();
-
+             if (newClient.MachineName != Environment.MachineName )
+            {
+                PopupNotifier popup = new PopupNotifier();
+                popup.TitleText = "Notification";
+                popup.ContentText = ("Client login: " + newClient.MachineName + " @ " + DateTime.UtcNow);
+                popup.ContentColor = System.Drawing.Color.Blue;
+                popup.Popup();
+            }
+            
             return 0;
         }
 
@@ -87,14 +88,14 @@ namespace SharingServer
         }
         public ConnectedClient connectedClients()
         {
-            var establisedUserConnection = OperationContext.Current.GetCallbackChannel<IClient>();
-            foreach(var client in _connectedClients)
-            {
-                if (client.Value.connection == establisedUserConnection)
+           // var establisedUserConnection = OperationContext.Current.GetCallbackChannel<IClient>();
+           // foreach(var client in _connectedClients)
+           // {
+           //     if (client.Value.connection == establisedUserConnection)
                 {
-                    return client.Value;
+           //         return client.Value;
                 }
-            }
+           // }
             return null;
         }
 
@@ -105,7 +106,7 @@ namespace SharingServer
             {
                 ConnectedClient removedClient;
                 _connectedClients.TryRemove(client.MachineName, out removedClient);
-
+              
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("Client logoff: {0} @ {1}", removedClient.MachineName, DateTime.UtcNow);
                 Console.ResetColor();

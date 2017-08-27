@@ -21,13 +21,11 @@ namespace SQLDAL
             {
                 SqlConnection myConnection = new SqlConnection(path);
                 myConnection.Open();
-                Console.WriteLine("Yeah");
                 myConnection.Close();
         
             }
             catch(Exception e)
             {
-                Console.WriteLine("No");
                 Console.WriteLine(e);
 
            

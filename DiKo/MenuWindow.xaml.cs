@@ -20,9 +20,10 @@ using System.ServiceModel;
 using DiKo.Service;
 using static DiKo.FileSharing.Treeview;
 using System.ServiceModel.Discovery;
-using DiKo.Service;
 using System.Runtime.InteropServices;
 using System.IO;
+using SharingServer;
+using Tulpep.NotificationWindow;
 
 namespace DiKo
 {
@@ -31,18 +32,16 @@ namespace DiKo
     /// </summary>
     public partial class MenuWindow : Window
     {
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-        private static extern bool AttachConsole(int dwProcessId);
 
-        private const int ATTACH_PARENT_PROCESS = -1;
-
-        StreamWriter _stdOutWriter;
-
-        public static ISharingService Server;
+        SharingService Server = new SharingService();
         private static DuplexChannelFactory<ISharingService> _channelFactory;
+        private int channels = 0;
+        private List<string> connectedClients = new List<string>();
+        SharingConnection conn = new SharingConnection();
 
         getDownloadPath downloadPath = new getDownloadPath();
         LoadingScreen loadingScreen = new LoadingScreen();
+        
         public MenuWindow()
         {
             InitializeComponent();
@@ -67,6 +66,7 @@ namespace DiKo
             wishListPanel.Visibility = Visibility.Hidden;
             refreshPanel.Visibility = Visibility.Hidden;
             searchPanel.Visibility = Visibility.Hidden;
+            updateTimerForClients();
         }
 
         private void shareButton_Click(object sender, RoutedEventArgs e)
@@ -136,15 +136,16 @@ namespace DiKo
             /*_channelFactory = new DuplexChannelFactory<ISharingService>(new ClientCallback(), "FileSharingEndPoint");
             Server = _channelFactory.CreateChannel();
             int loginValue = Server.Login(Environment.MachineName);*/
-            SharingConnection conn = new SharingConnection();
             conn.Sharing_SetupChannel();
             conn.Sharing_DiscoverChannel();
 
-            List<string> connectedClients = conn.urisList();
-            foreach(string uri in connectedClients)
-            {
-                Console.WriteLine(uri);
-            }
+            connectedClients = conn.getUrisList();
+            int loginvalue = Server.Login(connectedClients);
+            Console.WriteLine(conn.countConnectedChannels().ToString());
+            channels = conn.countConnectedChannels();
+
+
+            
             
             //if (loginValue == 1)
             //{
@@ -195,12 +196,38 @@ namespace DiKo
             
             
         }
+        private void updateTimerForClients()
+        {
+            DispatcherTimer updateTimer =new DispatcherTimer();
+            updateTimer.Tick += new EventHandler(updateTimer_Tick);
+            updateTimer.Interval = TimeSpan.FromSeconds(1);
+            updateTimer.Start();
+        }
+
+        private void updateTimer_Tick(object sender, EventArgs e)
+        {
+            conn.Sharing_DiscoverChannel();
+            List<string> connectedClientsUpdate = conn.getUrisList();
+            int channelUpdate = conn.countConnectedChannels();
+
+            if (channelUpdate != channels)
+            {
+                connectedClients = connectedClientsUpdate;
+                channels = channelUpdate;
+                MessageBox.Show(channels.ToString());
+                int value = Server.Login(connectedClients);
+            }
+
+        }
+
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             Server.Logout();
 
             base.OnClosing(e);
         }
+
+
 
 
     }
