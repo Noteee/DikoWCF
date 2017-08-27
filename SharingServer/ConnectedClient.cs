@@ -12,6 +12,5 @@ namespace SharingServer
         public IClient connection;
 
         public string MachineName { get; set; }
-        public DateTime LoginDate { get; set; }
     }
 }

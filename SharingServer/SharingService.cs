@@ -10,6 +10,7 @@ using SQLDAL;
 using System.ServiceModel.Discovery;
 using System.ServiceModel.Description;
 using Tulpep.NotificationWindow;
+using System.Drawing;
 
 namespace SharingServer
 {
@@ -65,14 +66,14 @@ namespace SharingServer
                     ConnectedClient newClient = new ConnectedClient();
                     
                     newClient.MachineName = getUri.Host;
-                    newClient.LoginDate = DateTime.UtcNow;
                     _connectedClients.TryAdd(getUri.Host, newClient);
                     if (newClient.MachineName != Environment.MachineName.ToLower())
                     {
                         PopupNotifier popup = new PopupNotifier();
                         popup.TitleText = "Notification";
-                        popup.ContentText = ("Client login: " + newClient.MachineName + " @ " + DateTime.UtcNow);
+                        popup.ContentText = ("Client is online: " + newClient.MachineName + " @ " + DateTime.UtcNow);
                         popup.ContentColor = System.Drawing.Color.Blue;
+                        popup.ContentFont = new Font("Tahoma", 15);
                         popup.Popup();
                     }
 
@@ -114,10 +115,16 @@ namespace SharingServer
             {
                 ConnectedClient removedClient;
                 _connectedClients.TryRemove(client.MachineName, out removedClient);
-              
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine("Client logoff: {0} @ {1}", removedClient.MachineName, DateTime.UtcNow);
-                Console.ResetColor();
+
+                if (client.MachineName != Environment.MachineName.ToLower())
+                {
+                    PopupNotifier popup = new PopupNotifier();
+                    popup.TitleText = "Notification";
+                    popup.ContentText = ("Client is offline: " + client.MachineName + " @ " + DateTime.UtcNow);
+                    popup.ContentColor = System.Drawing.Color.Magenta;
+                    popup.ContentFont = new Font("Tahoma", 15);
+                    popup.Popup();
+                }
             }
         }
 

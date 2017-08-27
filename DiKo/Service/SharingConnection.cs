@@ -41,6 +41,7 @@ namespace DiKo.Service
                 if (!urisConnected.Contains(edm.Address.Uri.ToString()) && edm.Address.Uri.ToString().StartsWith("http"))
                 {
                     addUrisToList(edm.Address.Uri.ToString());
+                    
                     Console.WriteLine(edm.Address.Uri.ToString());
                 }
                 if (edm.Address.Uri.ToString().Contains(Environment.MachineName.ToLower()))
