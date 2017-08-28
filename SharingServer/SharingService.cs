@@ -19,6 +19,7 @@ namespace SharingServer
     {
        public ConcurrentDictionary<string, ConnectedClient> _connectedClients = new ConcurrentDictionary<string, ConnectedClient>();
 
+        // opening the host
         public void hostOpen()
         {
             string hostname = System.Environment.MachineName;
@@ -43,7 +44,8 @@ namespace SharingServer
             
         }
 
-        public int Login(List<string> uris)
+        // happens automaticly, when discovery finds a new channel
+        public void Login(List<string> uris)
         {
 
             foreach(string uri in uris)
@@ -69,11 +71,9 @@ namespace SharingServer
                 }
           
             }
-                        
-            
-            return 0;
-        }
 
+        }
+        // this will return to clients the files list from database
         public void getTables(string machineName, List<FileShareHandler> files) { 
         /*{
             foreach (var client in _connectedClients)
@@ -84,6 +84,7 @@ namespace SharingServer
                 }
             }*/
         }
+        
         public ConnectedClient connectedClients()
         {
            
@@ -96,7 +97,7 @@ namespace SharingServer
             }
             return null;
         }
-
+        //log off, that discovery can't find you in the network
         public void Logout(List<string> uris)
         {
             List<string> getUris = new List<string>();

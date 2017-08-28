@@ -9,6 +9,7 @@ using System.Windows.Controls;
 
 namespace SharingInterfaces
 {
+    //methods that clienta get back
     public interface IClient
     {
         [OperationContract]

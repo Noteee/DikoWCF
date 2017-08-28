@@ -30,6 +30,7 @@ namespace DiKo.Service
             return urisConnected.Count;
         }
 
+        //use wcf discovery to find endpoints that use the same service 
         public void Sharing_DiscoverChannel()
         {
             urisConnected.Clear();
@@ -49,6 +50,7 @@ namespace DiKo.Service
             }
 
         }
+        //sets up your channel and endpoint
         public void Sharing_SetupChannel()
         {
 

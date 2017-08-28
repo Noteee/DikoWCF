@@ -66,7 +66,8 @@ namespace DiKo
             wishListPanel.Visibility = Visibility.Hidden;
             refreshPanel.Visibility = Visibility.Hidden;
             searchPanel.Visibility = Visibility.Hidden;
-            
+            SQLDAL.SQLDAL.ConnecToDB();
+
         }
 
         private void shareButton_Click(object sender, RoutedEventArgs e)
@@ -133,7 +134,6 @@ namespace DiKo
             refreshPanel.Visibility = Visibility.Visible;
             searchPanel.Visibility = Visibility.Visible;
 
-
             getClientConnected();
 
         }
@@ -145,18 +145,21 @@ namespace DiKo
             downloadPath.SetEnvinronmentalVariable(downloadPath.getPath());
             
         }
+        // gets the first starting - give you the endpoint, locate others, and login to the service
         public void getClientConnected()
         {
             conn.Sharing_SetupChannel();
             conn.Sharing_DiscoverChannel();
 
             connectedClients = conn.getUrisList();
-            int loginvalue = Server.Login(connectedClients);
+            Server.Login(connectedClients);
             Console.WriteLine(conn.countConnectedChannels().ToString());
             channels = conn.countConnectedChannels();
 
             updateTimerForClients();
         }
+
+        //this will get back the list from the server, with others files's
         public void fillSharedFiles(List<FileShareHandler> files)
         {
             
@@ -179,6 +182,8 @@ namespace DiKo
             
             
         }
+
+        //update the clients in every second
         private void updateTimerForClients()
         {
             DispatcherTimer updateTimer =new DispatcherTimer();
@@ -197,7 +202,7 @@ namespace DiKo
             {
                 connectedClients = connectedClientsUpdate;
                 channels = channelUpdate;
-                int value = Server.Login(connectedClients);
+                Server.Login(connectedClients);
             }
             if (channelUpdate < channels)
             {

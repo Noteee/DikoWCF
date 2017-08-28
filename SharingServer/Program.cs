@@ -17,28 +17,11 @@ namespace SharingServer
     {
         public static SharingService _server = new SharingService();
 
- 
+        // creating host 
         static void Main(string[] args)
         {
 
               _server.hostOpen();
-
-                Console.WriteLine("Host open ...");
-                Console.ReadLine();
-            
-            /*using (ServiceHost host = new ServiceHost(_server))
-            {
-
-
-
-
-
-
-                host.Open();
-
-                Console.WriteLine("Server is running...");
-                Console.ReadLine();
-            }*/
 
         }
 

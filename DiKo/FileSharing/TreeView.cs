@@ -100,7 +100,7 @@ namespace DiKo.FileSharing
             {
 
             }
-            if (SharedFileBrowsing.Browser.GetMySharedFiles() != null && programFirstStart == false)
+            /*if (SharedFileBrowsing.Browser.GetMySharedFiles() != null && programFirstStart == false)
             {
 
                 foreach (FileShareHandler fsh in SharedFileBrowsing.Browser.GetMySharedFiles())
@@ -110,7 +110,7 @@ namespace DiKo.FileSharing
                     currentDatagrid = this.dataGrid;
                     programFirstStart = true;
                 }
-            }
+            }*/
             else
             {
                 try

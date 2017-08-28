@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 namespace DiKo.Service
 {
-
+    //clients callback
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     class ClientCallback : IClient
     {

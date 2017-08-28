@@ -8,15 +8,14 @@ using System.Text;
 
 namespace SharingInterfaces
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "ISharingService" in both code and config file together.
+
+    // sharing interface which implemented in: SharingServer -> SharingService
     [ServiceContract(CallbackContract = typeof(IClient))]
     public interface ISharingService
     {
-        /*[OperationContract]
 
-        string hello();*/
         [OperationContract]
-        int Login(List<string> uri);
+        void Login(List<string> uri);
         [OperationContract]
         void getTables(string machineName, List<FileShareHandler> files);
         [OperationContract]
