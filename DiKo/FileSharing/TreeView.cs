@@ -107,6 +107,7 @@ namespace DiKo.FileSharing
                 {
                     dataGrid.Items.Add(new DataItem { fileName = fsh.FileName, fileEx = fsh.FileExtension, fileSize = fsh.FileSize, filePath = fsh.FilePath });
                     WriteSharedFileList(dataGrid);
+                    WriteMyWishList(dataGrid);
                     currentDatagrid = this.dataGrid;
                     programFirstStart = true;
                 }
@@ -123,6 +124,7 @@ namespace DiKo.FileSharing
                     {
                         dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), fileSize = getSize(file.Length), filePath = file.FullName });
                         WriteSharedFileList(dataGrid);
+                        WriteMyWishList(dataGrid);
                         currentDatagrid = this.dataGrid;
                     }
                     
@@ -229,6 +231,15 @@ namespace DiKo.FileSharing
                 Console.WriteLine(dI.fileName);
             }
         }
+        public static void WriteMyWishList(DataGrid datagrid)
+        {
+            List<FileShareHandler> myWishList = new List<FileShareHandler>();
+            foreach (DataItem dI in datagrid.Items)
+            {
+                myWishList.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
+                Console.WriteLine(dI.fileName);
+            }
+        }
 
         public static List<FileShareHandler> GetSharedFileList(DataGrid datagrid)
         {
@@ -240,11 +251,17 @@ namespace DiKo.FileSharing
             return mySharedFiles;
         }
 
-      
-        public static void AddToWishList(FileShareHandler wishFile)
+        public static List<FileShareHandler> getWishList(DataGrid datagrid)
         {
-            myWishList.Add(wishFile);
+            List<FileShareHandler> myWishList = new List<FileShareHandler>();
+            foreach (DataItem dI in datagrid.Items)
+            {
+                myWishList.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
+            }
+            return myWishList;
         }
+
+
         public static void DeleteFromWishList(FileShareHandler wishfile)
         {
             for(int i = 0; i < myWishList.Count(); i++)

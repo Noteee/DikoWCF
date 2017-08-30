@@ -75,6 +75,7 @@ namespace DiKo
             loadingScreen.Show();
             loadingScreen.Topmost = true;
             SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
+            SQLDAL.SQLDAL.WriteWishList(Treeview.getWishList(Treeview.GetCurrentDataGrid()));
         }
 
         private void shareButtonLabel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -82,6 +83,8 @@ namespace DiKo
             StartCloseTimer();
             loadingScreen.Show();
             SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
+            SQLDAL.SQLDAL.WriteWishList(Treeview.getWishList(Treeview.GetCurrentDataGrid()));
+
             loadingScreen.Topmost = true;
 
 

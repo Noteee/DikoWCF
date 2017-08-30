@@ -19,6 +19,7 @@ namespace SQLDAL
 
              try
             {
+              
                 SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True;");
                 myConnection.Open();
                 Console.WriteLine("Yeah");
@@ -72,7 +73,7 @@ namespace SQLDAL
         }
         public static void DropMyWishList()
         {
-            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + wishlist + ";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE " + wishlist + " (FileName TEXT, FileExtension TEXT, FilePath TEXT,FileSize TEXT);", myconn);
+            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + wishlist + ";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='WishList' AND xtype='U')CREATE TABLE " + wishlist + " (FileName TEXT, FileExtension TEXT, FilePath TEXT,FileSize TEXT);", myconn);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
