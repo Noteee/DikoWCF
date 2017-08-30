@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using SQLDAL;
 using System.Windows.Threading;
+using DiKo.SharedFileBrowsing;
 using MahApps.Metro.Controls;
 
 namespace DiKo
@@ -28,9 +29,10 @@ namespace DiKo
 	{
 		getDownloadPath downloadPath = new getDownloadPath();
 		LoadingScreen loadingScreen = new LoadingScreen();
+	    
 
 
-		public MenuWindow()
+        public MenuWindow()
 		{
 			InitializeComponent();
 			downloadPath.setPath(downloadPath.GetEnvironmentalVariable());
@@ -177,6 +179,14 @@ namespace DiKo
 		{
 		    var textBox = sender as TextBox;
 		    string text = textBox.Text;
+		    List<FileShareHandler> result = new List<FileShareHandler>();
+            Browser myBrowser = new Browser();
+            result = myBrowser.RegExSearch(text);
+		    foreach (FileShareHandler data in result)
+		    {
+		        Console.WriteLine(data.FileName);
+		    }
+
 		}
 
 		private void CollectionViewSource_Filter(object sender, FilterEventArgs e)

@@ -233,6 +233,7 @@ namespace DiKo.FileSharing
         public static List<FileShareHandler> GetSharedFileList(DataGrid datagrid)
         {
             List<FileShareHandler> mySharedFiles = new List<FileShareHandler>();
+
             foreach (DataItem dI in datagrid.Items)
             {
                 mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));

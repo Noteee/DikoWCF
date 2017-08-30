@@ -123,16 +123,19 @@ namespace DiKo.SharedFileBrowsing
             return dataList;
         }
 
-        public void RegExSearch(string input)
+        public List<FileShareHandler> RegExSearch(string input)
         {
             Regex regex = new Regex(input);
+            List<FileShareHandler>  resultList = new List<FileShareHandler>();
             List<FileShareHandler>  dataList = Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid());
             for (int i = 0; i < dataList.Count(); i++)
             {
-                if (regex.IsMatch(input))
+                if (regex.IsMatch(dataList[i].FileName))
                 {
+                    resultList.Add(dataList[i]);
                 }
             }
+            return resultList;
 
         }
 

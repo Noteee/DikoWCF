@@ -10,8 +10,8 @@ namespace SQLDAL
     public class SQLDAL
     {
         public static string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
-        public static string database = @"[DiKoDB].[dbo].[MySharedFiles]";
-        public static string wishlist = @"[DiKoDB].[dbo].[WishList]";
+        public static string database = @"[DiKo].[dbo].[SharedFiles]";
+        public static string wishlist = @"[DiKo].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
 
         public static void ConnecToDB()
@@ -19,7 +19,7 @@ namespace SQLDAL
 
              try
             {
-                SqlConnection myConnection = new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True;");
+                SqlConnection myConnection = new SqlConnection(path);
                 myConnection.Open();
                 Console.WriteLine("Yeah");
                 myConnection.Close();
@@ -55,7 +55,7 @@ namespace SQLDAL
 
         public static SqlConnection returnSqlConnection(){
 
-            return new SqlConnection(@"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True;");
+            return new SqlConnection(path);
         }
 
         public static void WriteWishList(List<FileShareHandler> fileShareHandler)
