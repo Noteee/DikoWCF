@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using DiKo.FileSharing;
 using SQLDAL;
 
 namespace DiKo.SharedFileBrowsing
@@ -118,6 +121,22 @@ namespace DiKo.SharedFileBrowsing
             }
             con.Close();
             return dataList;
+        }
+
+        public List<FileShareHandler> RegExSearch(string input)
+        {
+            Regex regex = new Regex(input);
+            List<FileShareHandler>  resultList = new List<FileShareHandler>();
+            List<FileShareHandler>  dataList = Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid());
+            for (int i = 0; i < dataList.Count(); i++)
+            {
+                if (regex.IsMatch(dataList[i].FileName))
+                {
+                    resultList.Add(dataList[i]);
+                }
+            }
+            return resultList;
+
         }
 
 
