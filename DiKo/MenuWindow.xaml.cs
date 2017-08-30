@@ -175,6 +175,8 @@ namespace DiKo
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
+		    var textBox = sender as TextBox;
+		    string text = textBox.Text;
 		}
 
 		private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
