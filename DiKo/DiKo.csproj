@@ -68,6 +68,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="SharedFileBrowsing\Browser.cs" />
+    <Compile Include="Task.cs" />
     <Page Include="LoadingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

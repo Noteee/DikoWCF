@@ -1,6 +1,8 @@
 ﻿using DiKo.FileSharing;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +28,8 @@ namespace DiKo
     {
         getDownloadPath downloadPath = new getDownloadPath();
         LoadingScreen loadingScreen = new LoadingScreen();
+
+
         public MenuWindow()
         {
             InitializeComponent();
@@ -51,7 +55,7 @@ namespace DiKo
             refreshPanel.Visibility = Visibility.Hidden;
             searchPanel.Visibility = Visibility.Hidden;
         }
-      
+
 
         private void StartCloseTimer()
         {
@@ -63,7 +67,7 @@ namespace DiKo
 
         private void TimerTick(object sender, EventArgs e)
         {
-            DispatcherTimer timer = (DispatcherTimer)sender;
+            DispatcherTimer timer = (DispatcherTimer) sender;
             timer.Stop();
             timer.Tick -= TimerTick;
             loadingScreen.Hide();
@@ -84,8 +88,6 @@ namespace DiKo
             loadingScreen.Show();
             SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
             loadingScreen.Topmost = true;
-
-
         }
 
         private void sharedItemsButton_Click(object sender, RoutedEventArgs e)
@@ -102,9 +104,6 @@ namespace DiKo
             wishListPanel.Visibility = Visibility.Hidden;
             refreshPanel.Visibility = Visibility.Hidden;
             searchPanel.Visibility = Visibility.Hidden;
-
-
-
         }
 
         private void itemsSharedWithMe_Click(object sender, RoutedEventArgs e)
@@ -119,7 +118,6 @@ namespace DiKo
             wishListPanel.Visibility = Visibility.Visible;
             refreshPanel.Visibility = Visibility.Visible;
             searchPanel.Visibility = Visibility.Visible;
-            
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -127,8 +125,22 @@ namespace DiKo
             downloadPath.getDownloadFolder();
             downloadPath.getPath();
             downloadPath.SetEnvinronmentalVariable(downloadPath.getPath());
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
             
         }
-        
+
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+
+ 
+        }
+
+        private void WishListMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
