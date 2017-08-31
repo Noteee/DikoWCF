@@ -87,14 +87,15 @@ namespace DiKo
 			StartCloseTimer();
 			loadingScreen.Show();
 			loadingScreen.Topmost = true;
-			SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid()));
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid()));
 		}
 
 		private void shareButtonLabel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			StartCloseTimer();
 			loadingScreen.Show();
-			SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid()));
+		    itemList = Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid());
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid()));
 			loadingScreen.Topmost = true;
 		}
 
@@ -190,10 +191,8 @@ namespace DiKo
             result = myBrowser.RegExSearch(text, itemList);
 		    if (result != null)
 		    {
-		        foreach (FileShareHandler data in result)
-		        {
-		            Console.WriteLine(data.FileName);
-		        }
+                Treeview.FillDataGrid(result, itemsSharedWithMeGrid);
+		        sharedWithMe.ShowGridLines = true;
 		    }
 
 		}

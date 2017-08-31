@@ -9,9 +9,9 @@ namespace SQLDAL
 {
     public class SQLDAL
     {
-        public static string path = @"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True";
-        public static string database = @"[DiKoDB].[dbo].[MySharedFiles]";
-        public static string wishlist = @"[DiKoDB].[dbo].[WishList]";
+        public static string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
+        public static string database = @"[DiKo].[dbo].[SharedFiles]";
+        public static string wishlist = @"[DiKo].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
         
 
