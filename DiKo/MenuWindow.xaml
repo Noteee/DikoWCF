@@ -7,13 +7,20 @@
         xmlns:local="clr-namespace:DiKo"
         xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="DiKo.MenuWindow"
         mc:Ignorable="d"
+        WindowStyle="SingleBorderWindow"
         Title="MenuWindow" Height="auto" Width="auto" d:DesignWidth="1532.812" d:DesignHeight="843.835" MinHeight="300" MinWidth="1000">
-    
+
     <Window.Resources>
         <local:Tasks x:Key="tasks" />
         <CollectionViewSource x:Key="cvsTasks" Source="{StaticResource tasks}" 
                               Filter="CollectionViewSource_Filter">
         </CollectionViewSource>
+        <Color x:Key="Color1">#FF1A2A6C</Color>
+        <Color x:Key="Color2">#FFB21F1F</Color>
+        <Color x:Key="Color3">#FFFDBB2D</Color>
+        <Color x:Key="Color4">#FF070000</Color>
+        <Color x:Key="Color5">#FF4C0001</Color>
+        <Color x:Key="Color6">#FF070000</Color>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -27,10 +34,11 @@
             <ColumnDefinition Width="89*"/>
             <ColumnDefinition Width="95*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="TreeGrid"  Background="DarkGray" Grid.Row="1"/>
+        <Grid x:Name="TreeGrid" Grid.Row="1">
+        </Grid>
         <Grid x:Name="SharedDataGrid" Background="DimGray" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
         <Grid x:Name="sharedWithMe" Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"/>
-        
+
         <DockPanel Grid.Row="1" Grid.Column="0" x:Name="sharedTreeViewPanel"  HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
             <TreeView x:Name="whatToShareTreeView"  Height="auto" BorderBrush="Transparent" Background="Transparent" AllowDrop="True" FontSize="18" FontWeight="ExtraBold">
                 <TreeView.Resources>
@@ -42,7 +50,13 @@
                                         <Image x:Name="img"  Width="20" Height="20" Stretch="Fill" 
                                        Source="{Binding Header, Converter={x:Static local:HeaderToImageConverter.Instance}, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}, Mode=FindAncestor}}"       
                                        />
-                                        <TextBlock Text="{Binding}" Foreground="Indigo"  FontWeight="Heavy"  Margin="5,0" FontFamily="Comic Sans MS" FontSize="24" />
+                                        <TextBlock Text="{Binding}"  FontWeight="Heavy"  Margin="5,0" FontFamily="Comic Sans MS" FontSize="24" Background="{x:Null}" >
+                                            <TextBlock.Foreground>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="Black"  Offset="0"/>
+                                                </LinearGradientBrush>
+                                            </TextBlock.Foreground>
+                                        </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </Setter.Value>
@@ -62,17 +76,45 @@
             </DataGrid>
         </DockPanel>
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" x:Name="menuSharedPanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto">
-            <Button x:Name="sharedItemsButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="My Shared Itmes" Height="auto" FontSize="60" Width="1500" Background="Aqua" Click="sharedItemsButton_Click" FontFamily="/DiKo;component/#Pictorial Signature" FontWeight="Bold"/>
+            <Button x:Name="sharedItemsButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="My Shared Itmes" Height="auto" Width="1500" Click="sharedItemsButton_Click" FontSize="30" FontFamily="Comic Sans MS" FontWeight="Bold">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#56CCF2" Offset="0"/>
+                        <GradientStop Color="#2F80ED" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+
+            </Button>
         </DockPanel>
         <DockPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="menuSharedWithMePanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <Button x:Name="itemsSharedWithMe" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="Items Shared With me" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="auto" Width="1500" Background="Aqua" Click="itemsSharedWithMe_Click" FontSize="60" FontFamily="/DiKo;component/#Pictorial Signature" FontWeight="Bold" />
+            <Button x:Name="itemsSharedWithMe" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="Items Shared With me" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="auto" Width="1500" Click="itemsSharedWithMe_Click" FontSize="30" FontFamily="Comic Sans MS" FontWeight="Bold" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#56CCF2" Offset="0"/>
+                        <GradientStop Color="#2F80ED" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
 
         </DockPanel>
         <DockPanel Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="1" x:Name="WishListButtonPanel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <Button x:Name="WishListMenuButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="My Wish List" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="auto"  Width="1500" Background="Aqua" Click="WishListMenuButton_Click" FontSize="60" FontFamily="/DiKo;component/#Pictorial Signature" FontWeight="Bold"/>
+            <Button x:Name="WishListMenuButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Content="My Wish List" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="auto"  Width="1500" Click="WishListMenuButton_Click" FontSize="30" FontFamily="Comic Sans MS" FontWeight="Bold">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#56CCF2" Offset="0"/>
+                        <GradientStop Color="#2F80ED" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
 
         </DockPanel>
-        <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" x:Name="ShareButtonPanel" Background="Aqua">
+        <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" x:Name="ShareButtonPanel">
+            <DockPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#56CCF2" Offset="0"/>
+                    <GradientStop Color="#2F80ED" Offset="1"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
             <Button x:Name="shareButton" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="auto" Height="auto" MinWidth="2000" MinHeight="30" Background="Transparent" BorderThickness="0" Custom:ButtonHelper.PreserveTextCase="True" FontSize="30" MouseLeftButtonDown="shareButton_MouseLeftButtonDown" >
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -86,7 +128,7 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
-                <Label x:Name="shareButtonLabel" Content="Please Press This Button To Share Your Files." VerticalAlignment="Center" HorizontalAlignment="Center" MouseLeftButtonDown="shareButtonLabel_MouseLeftButtonDown"/>
+                <Label x:Name="shareButtonLabel" Content="Please Press This Button To Share Your Files." FontWeight="Heavy" FontSize="25" FontFamily="Comic Sans MS" VerticalAlignment="Center" HorizontalAlignment="Center" MouseLeftButtonDown="shareButtonLabel_MouseLeftButtonDown"/>
             </Button>
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="itemsSharedWithMePanel" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto" Background="Transparent">
@@ -109,10 +151,10 @@
                 </DataGrid.ColumnWidth>
             </DataGrid>
         </DockPanel>
-        
+
         <DockPanel x:Name="downLoadPanel" Grid.Row="2" Grid.Column="0" Visibility="Hidden">
             <Image Source="Images/download-icon-png-20.png" Height="30">
-                </Image>
+            </Image>
         </DockPanel>
         <DockPanel x:Name="wishListPanel" Grid.Row="2" Grid.Column="1" Visibility="Hidden">
             <Image Source="Images/wishlist.png" Height="30">

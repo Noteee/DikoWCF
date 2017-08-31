@@ -122,6 +122,8 @@ namespace DiKo
 
 		private void setBackgroundForSharedFiles()
 		{
+			LinearGradientBrush gradientBrush = new LinearGradientBrush(Color.FromRgb(85, 98, 112), Color.FromRgb(255, 107, 107), new Point(0.5, 0), new Point(0.5, 1));
+
 			SharedDataGrid.Background = Brushes.DimGray;
 			TreeGrid.Background = Brushes.DarkGray;
 			sharedWithMe.Background = Brushes.Transparent;

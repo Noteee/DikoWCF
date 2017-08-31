@@ -94,12 +94,17 @@ namespace DiKo.FileSharing
         private void AddingToShared(object sender, MouseButtonEventArgs e, DataGrid dataGrid, object selected)
         {
             // get the file attributes for file or directory
-            FileAttributes attr = File.GetAttributes(@"" + path);
-            //detect whether its a directory or file
-            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
-            {
+	        try
+	        {
+		        FileAttributes attr = File.GetAttributes(@"" + path);
 
-            }
+			}
+			catch (Exception exception)
+	        {
+		        Console.WriteLine(exception);
+	        }
+            //detect whether its a directory or file
+
             if (SharedFileBrowsing.Browser.GetMySharedFiles() != null && programFirstStart == false)
             {
 
