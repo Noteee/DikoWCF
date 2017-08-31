@@ -34,7 +34,6 @@ namespace DiKo
 		{
 			InitializeComponent();
 			downloadPath.setPath(downloadPath.GetEnvironmentalVariable());
-			//this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			FileData datagrid = new FileData(sharedGrid);
 			FileData datagridShared = new FileData(itemsSharedWithMeGrid);
 			FileData datagridMyWishList = new FileData(MyWishListGrid);
@@ -44,18 +43,13 @@ namespace DiKo
 			Treeview tree = new Treeview(whatToShareTreeView, sharedGrid);
 			tree.Window_Loaded();
 			SQLDAL.SQLDAL.ConnecToDB();
-			sharedContentPanel.Visibility = Visibility.Visible;
-			sharedTreeViewPanel.Visibility = Visibility.Visible;
-			itemsSharedWithMePanel.Visibility = Visibility.Hidden;
-			SharedDataGrid.Background = Brushes.DimGray;
-			TreeGrid.Background = Brushes.DarkGray;
+			sharedPanelShow();
+			setBackgroundForSharedFiles();
 			sharedWithMe.Background = Brushes.Transparent;
 			ShareButtonPanel.Visibility = Visibility.Visible;
-			itemsSharedWithMeGrid.Visibility = Visibility.Hidden;
-			downLoadPanel.Visibility = Visibility.Hidden;
-			wishListPanel.Visibility = Visibility.Hidden;
-			refreshPanel.Visibility = Visibility.Hidden;
-			searchPanel.Visibility = Visibility.Hidden;
+			itemsSharedWithMeHide();
+			myWishListHide();
+			
 		}
 
 
