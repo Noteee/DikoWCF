@@ -9,10 +9,11 @@ namespace SQLDAL
 {
     public class SQLDAL
     {
-        public static string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
-        public static string database = @"[DiKo].[dbo].[SharedFiles]";
-        public static string wishlist = @"[DiKo].[dbo].[WishList]";
+        public static string path = @"Data Source=BYTEFORCEMAINPC\BYTESQL;Initial Catalog=DiKoDB;Integrated Security=True";
+        public static string database = @"[DiKoDB].[dbo].[MySharedFiles]";
+        public static string wishlist = @"[DiKoDB].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
+        
 
         public static void ConnecToDB()
         {
@@ -35,7 +36,7 @@ namespace SQLDAL
         }
 
         public static void WriteListToDB(List<FileShareHandler> fileShareHandler)
-        {   dropMySharedTable();
+        {   DropMySharedTable();
             foreach (FileShareHandler fs in fileShareHandler)
             {
                 Console.WriteLine(fs.FileName, fs.FilePath, fs.FileExtension, fs.FileSize);
@@ -46,7 +47,7 @@ namespace SQLDAL
             }
         }
 
-        public static void dropMySharedTable(){
+        public static void DropMySharedTable(){
             SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + database +";IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='MySharedFiles' AND xtype='U')CREATE TABLE "+ database + " (FileName TEXT, FileExtension TEXT, FilePath TEXT,FileSize TEXT);", myconn);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();

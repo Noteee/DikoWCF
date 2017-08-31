@@ -53,8 +53,10 @@ namespace DiKo
 			SharedDataGrid.Background = Brushes.DimGray;
 			TreeGrid.Background = Brushes.DarkGray;
 			sharedWithMe.Background = Brushes.Transparent;
+            myWishListHide();
 			ShareButtonPanel.Visibility = Visibility.Visible;
-			itemsSharedWithMeGrid.Visibility = Visibility.Hidden;
+            Treeview.SetMyShareListAsCurrent();
+            itemsSharedWithMeGrid.Visibility = Visibility.Hidden;
 			downLoadPanel.Visibility = Visibility.Hidden;
 			wishListPanel.Visibility = Visibility.Hidden;
 			refreshPanel.Visibility = Visibility.Hidden;
@@ -81,20 +83,18 @@ namespace DiKo
 
 		private void shareButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
+
 			StartCloseTimer();
 			loadingScreen.Show();
 			loadingScreen.Topmost = true;
-		    itemList = Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid());
-
-            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
+			SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid()));
 		}
 
 		private void shareButtonLabel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			StartCloseTimer();
 			loadingScreen.Show();
-		    itemList = Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid());
-            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
+			SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid()));
 			loadingScreen.Topmost = true;
 		}
 
@@ -155,7 +155,9 @@ namespace DiKo
 
 		private void sharedItemsButton_Click(object sender, RoutedEventArgs e)
 		{
-			sharedPanelShow();
+            Treeview.SetMyShareListAsCurrent();
+            Treeview.FillDataGrid(Treeview.currentFileList, Treeview.GetCurrentDataGrid());
+            sharedPanelShow();
 			itemsSharedWithMeHide();
 			bottomControlPanelHide();
 			setBackgroundForSharedFiles();
@@ -202,7 +204,8 @@ namespace DiKo
 
 		private void myWishListShow()
 		{
-			MyWishListPanel.Visibility = Visibility.Visible;
+        
+            MyWishListPanel.Visibility = Visibility.Visible;
 			MyWishListGrid.Visibility = Visibility.Visible;
 		}
 
@@ -214,8 +217,11 @@ namespace DiKo
 
 		private void WishListMenuButton_Click(object sender, RoutedEventArgs e)
 		{
-			sharedPanelHide();
-			itemsSharedWithMeHide();
+            Treeview.SetWishListAsCurrent();
+            Treeview.FillWishListGrid(Treeview.currentFileList, Treeview.GetCurrentDataGrid());
+            sharedPanelHide();
+            sharedContentPanel.Visibility = Visibility.Visible;
+            itemsSharedWithMeHide();
 			bottomControlPanelShow();
 			setBackgroundForItemsSharedWithMeAndWishList();
 			myWishListShow();
