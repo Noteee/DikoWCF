@@ -29,6 +29,7 @@ namespace DiKo
 	{
 		getDownloadPath downloadPath = new getDownloadPath();
 		LoadingScreen loadingScreen = new LoadingScreen();
+	    private List<FileShareHandler> itemList;
 	    
 
 
@@ -181,7 +182,7 @@ namespace DiKo
 		    string text = textBox.Text;
 		    List<FileShareHandler> result = new List<FileShareHandler>();
             Browser myBrowser = new Browser();
-            result = myBrowser.RegExSearch(text);
+            result = myBrowser.RegExSearch(text, itemList);
 		    foreach (FileShareHandler data in result)
 		    {
 		        Console.WriteLine(data.FileName);
