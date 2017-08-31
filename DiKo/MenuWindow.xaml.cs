@@ -84,14 +84,17 @@ namespace DiKo
 			StartCloseTimer();
 			loadingScreen.Show();
 			loadingScreen.Topmost = true;
-			SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
+		    itemList = Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid());
+
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
 		}
 
 		private void shareButtonLabel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			StartCloseTimer();
 			loadingScreen.Show();
-			SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
+		    itemList = Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid());
+            SQLDAL.SQLDAL.WriteListToDB(Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid()));
 			loadingScreen.Topmost = true;
 		}
 
@@ -183,9 +186,12 @@ namespace DiKo
 		    List<FileShareHandler> result = new List<FileShareHandler>();
             Browser myBrowser = new Browser();
             result = myBrowser.RegExSearch(text, itemList);
-		    foreach (FileShareHandler data in result)
+		    if (result != null)
 		    {
-		        Console.WriteLine(data.FileName);
+		        foreach (FileShareHandler data in result)
+		        {
+		            Console.WriteLine(data.FileName);
+		        }
 		    }
 
 		}

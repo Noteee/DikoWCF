@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using DiKo.FileSharing;
@@ -127,6 +128,11 @@ namespace DiKo.SharedFileBrowsing
         {
             Regex regex = new Regex(input);
             List<FileShareHandler>  resultList = new List<FileShareHandler>();
+            if (dataList == null)
+            {
+                MessageBox.Show("No items in the list");
+                return null;
+            }
             for (int i = 0; i < dataList.Count(); i++)
             {
                 if (regex.IsMatch(dataList[i].FileName))
