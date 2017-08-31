@@ -92,7 +92,7 @@ namespace DiKo.SharedFileBrowsing
             return sortList;
         }
 
-        public List<FileShareHandler> GetWishListData()
+        public static List<FileShareHandler> GetWishListData()
         {
             List<FileShareHandler> dataList = new List<FileShareHandler>();
             SqlDataReader myReader = null;
@@ -102,7 +102,8 @@ namespace DiKo.SharedFileBrowsing
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
-                dataList.Add(new FileShareHandler(myReader["Name"].ToString(), myReader["Path"].ToString(), myReader["Extension"].ToString(), myReader["Size"].ToString()));
+                dataList.Add(new FileShareHandler(myReader["FileName"].ToString(), myReader["FileExtension"].ToString(), myReader["FilePath"].ToString(), myReader["FileSize"].ToString()));
+                Console.WriteLine(myReader["FileName"]);
             }
             con.Close();
             return dataList;
@@ -127,7 +128,7 @@ namespace DiKo.SharedFileBrowsing
         {
             Regex regex = new Regex(input);
             List<FileShareHandler>  resultList = new List<FileShareHandler>();
-            List<FileShareHandler>  dataList = Treeview.GetSharedFileList(Treeview.GetCurrentDataGrid());
+            List<FileShareHandler>  dataList = Treeview.GetSharedFileListByDataGrid(Treeview.GetCurrentDataGrid());
             for (int i = 0; i < dataList.Count(); i++)
             {
                 if (regex.IsMatch(dataList[i].FileName))

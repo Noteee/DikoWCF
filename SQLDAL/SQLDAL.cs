@@ -13,6 +13,7 @@ namespace SQLDAL
         public static string database = @"[DiKoDB].[dbo].[MySharedFiles]";
         public static string wishlist = @"[DiKoDB].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
+        
 
         public static void ConnecToDB()
         {

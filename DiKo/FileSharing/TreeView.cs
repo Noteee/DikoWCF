@@ -14,20 +14,27 @@ namespace DiKo.FileSharing
 
     class Treeview
     {
-        private static bool programFirstStart = false;
-        private static List<FileShareHandler> myFileShareList = new List<FileShareHandler>();
+        private static bool programFirstStart = true;
+        private static List<FileShareHandler> myFileShareList = SharedFileBrowsing.Browser.GetMySharedFiles();
         private object dummyNode = null;
-        private static List<FileShareHandler> myWishList = new List<FileShareHandler>();
+        private static List<FileShareHandler> myWishList = SharedFileBrowsing.Browser.GetWishListData();
         private DataGrid dataGrid;
+        private static DataGrid wishlistGrid;
+        private static DataGrid mySharedGrid;
         private static DataGrid currentDatagrid;
+        private static DataGrid datagridInUse;
+        public static bool itemsShared = false;
         private TreeView tree;
         private string path;
+        public static List<FileShareHandler> currentFileList = new List<FileShareHandler>();
 
         public Treeview(TreeView tree, DataGrid dataGrid)
         {
             this.tree = tree;
             this.dataGrid = dataGrid;
         }
+
+
 
         public string SelectedImagePath { get; set; }
 
@@ -45,15 +52,30 @@ namespace DiKo.FileSharing
                 tree.Items.Add(item);
             }
             tree.SelectedItemChanged += foldersItem_SelectedItemChanged;
-            tree.MouseDoubleClick += new MouseButtonEventHandler((senderx, ex) => AddingToShared(senderx, ex, dataGrid, tree.SelectedItem));
+            tree.MouseDoubleClick += new MouseButtonEventHandler((senderx, ex) => AddingToShared(senderx, ex, dataGrid, tree.SelectedItem,currentFileList));
 
         }
 
-        public static List<FileShareHandler> getFileShareList()
+
+        public static void SetMyShareListAsCurrent()
         {
           
-            return myFileShareList;
+           
+                datagridInUse = mySharedGrid;
+                       
+                currentFileList = myFileShareList;
+         
+       
         }
+        public static void SetWishListAsCurrent()
+        {
+
+            currentFileList = myWishList;
+ 
+            
+        }
+
+        
 
         public void folder_Expanded(object sender, RoutedEventArgs e)
         {
@@ -91,42 +113,31 @@ namespace DiKo.FileSharing
             }
         }
 
-        private void AddingToShared(object sender, MouseButtonEventArgs e, DataGrid dataGrid, object selected)
+        private void AddingToShared(object sender, MouseButtonEventArgs e, DataGrid dataGrid, object selected,List<FileShareHandler> list)
         {
-            // get the file attributes for file or directory
             FileAttributes attr = File.GetAttributes(@"" + path);
-            //detect whether its a directory or file
             if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
             {
-
             }
-            if (SharedFileBrowsing.Browser.GetMySharedFiles() != null && programFirstStart == false)
+            if (list != null && programFirstStart == true)
             {
-
-                foreach (FileShareHandler fsh in SharedFileBrowsing.Browser.GetMySharedFiles())
-                {
-                    dataGrid.Items.Add(new DataItem { fileName = fsh.FileName, fileEx = fsh.FileExtension, fileSize = fsh.FileSize, filePath = fsh.FilePath });
-                    WriteSharedFileList(dataGrid);
-                    currentDatagrid = this.dataGrid;
-                    programFirstStart = true;
-                }
+                FillDataGrid(list,dataGrid);
             }
-            else
+            if(list!= null && programFirstStart == false)
             {
                 try
                 {   FileInfo file = new FileInfo(path);
-                    if (CheckItemInList(GetSharedFileList(this.dataGrid), new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), getSize(file.Length), file.FullName)) == true)
+                    if (CheckItemInList(list, new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), getSize(file.Length), file.FullName)) == true)
                     {
                         MessageBox.Show("Item already in list");
                     }
-                    else if (CheckItemInList(GetSharedFileList(this.dataGrid), new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), getSize(file.Length), file.FullName)) == false)
+                    else if (CheckItemInList(list, new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), getSize(file.Length), file.FullName)) == false)
                     {
+                        AddToWishList(new FileShareHandler(file.Name.Substring(0, file.Name.Length - 4), file.Extension.Substring(1, file.Extension.Length - 1), getSize(file.Length), file.FullName));
                         dataGrid.Items.Add(new DataItem { fileName = file.Name.Substring(0, file.Name.Length - 4), fileEx = file.Extension.Substring(1, file.Extension.Length - 1), fileSize = getSize(file.Length), filePath = file.FullName });
-                        WriteSharedFileList(dataGrid);
+                        WriteSharedFileList(dataGrid);                     
                         currentDatagrid = this.dataGrid;
-                    }
-                    
-                    
+                    }                    
                 }
                 catch
                 {
@@ -136,7 +147,46 @@ namespace DiKo.FileSharing
             }
 
         }
+        public static void FillDataGrid(List<FileShareHandler> list, DataGrid dataGrid)
+        {
+            try {
+                if (programFirstStart == false)
+                {
+                    dataGrid.Items.Clear();
+                }
+                if (list == null)
+                {
+                    list = currentFileList;
+                }
+                foreach (FileShareHandler fsh in list)
+                {
+                    Console.WriteLine(fsh.FileName);
+                    dataGrid.Items.Add(new DataItem { fileName = fsh.FileName, fileEx = fsh.FileExtension, fileSize = fsh.FileSize, filePath = fsh.FilePath });
+                    WriteSharedFileList(dataGrid);
+                    currentDatagrid = dataGrid;
+                    programFirstStart = false;
+                }
 
+
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        public static void FillWishListGrid(List<FileShareHandler> list, DataGrid dataGrid)
+        {
+            dataGrid.Items.Clear();
+            foreach (FileShareHandler fsh in list)
+            {
+                dataGrid.Items.Add(new DataItem { fileName = fsh.FileName, fileEx = fsh.FileExtension, fileSize = fsh.FileSize, filePath = fsh.FilePath });
+                currentDatagrid = dataGrid;
+                programFirstStart = false;
+            }
+        }
+      
+      
         public static DataGrid GetCurrentDataGrid()
         {
             return currentDatagrid;
@@ -228,9 +278,26 @@ namespace DiKo.FileSharing
                 mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
                 Console.WriteLine(dI.fileName);
             }
+            myFileShareList = mySharedFiles;
+            currentFileList = mySharedFiles;
+
         }
 
-        public static List<FileShareHandler> GetSharedFileList(DataGrid datagrid)
+        public static void WriteWishList(DataGrid datagrid)
+        {
+            List<FileShareHandler> mySharedFiles = new List<FileShareHandler>();
+            foreach (DataItem dI in datagrid.Items)
+            {
+                mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
+                Console.WriteLine(dI.fileName);
+            }
+            myWishList = mySharedFiles;
+            currentFileList = mySharedFiles;
+
+        }
+
+
+        public static List<FileShareHandler> GetSharedFileListByDataGrid(DataGrid datagrid)
         {
             List<FileShareHandler> mySharedFiles = new List<FileShareHandler>();
 
@@ -238,13 +305,22 @@ namespace DiKo.FileSharing
             {
                 mySharedFiles.Add(new FileShareHandler(dI.fileName, dI.fileEx, dI.filePath, dI.fileSize));
             }
+            myFileShareList = mySharedFiles;
+            currentFileList = mySharedFiles;
             return mySharedFiles;
         }
 
       
         public static void AddToWishList(FileShareHandler wishFile)
         {
-            myWishList.Add(wishFile);
+            if (CheckItemInList(myWishList,wishFile) == true)
+            {
+                MessageBox.Show("Item already in list");
+            }
+            else if (CheckItemInList(myWishList, wishFile) == false)
+            {
+                myWishList.Add(wishFile);
+            }
         }
         public static void DeleteFromWishList(FileShareHandler wishfile)
         {
@@ -256,16 +332,7 @@ namespace DiKo.FileSharing
                 }
             }
         }
-        public static void CheckForItemInList(List<FileShareHandler> fshList,FileShareHandler checkItem)
-        {
-            foreach(FileShareHandler fsh in fshList)
-            {
-                if (fsh.Equals(checkItem))
-                {
-                    Console.WriteLine("bennevan");
-                }
-            }
-        }
+   
 
         public static Boolean CheckItemInList(List<FileShareHandler> fshList,FileShareHandler fsh)
         {
