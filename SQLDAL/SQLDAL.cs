@@ -9,22 +9,26 @@ namespace SQLDAL
 {
     public class SQLDAL
     {
-        public static string path = @"Data Source=DESKTOP-54OBGPG\DIKO;Initial Catalog=DiKo;Integrated Security=True";
-        public static string database = @"[DiKo].[dbo].[SharedFiles]";
-        public static string wishlist = @"[DiKo].[dbo].[WishList]";
+	    public static string path =
+				@"Server=localhost\SQLEXPRESS01;Database=master;Trusted_Connection=True;"
+			;
+        public static string database = @"[DiKoDB].[dbo].[MySharedFiles]";
+        public static string wishlist = @"[DiKoDB].[dbo].[WishList]";
         public static SqlConnection myconn = returnSqlConnection();
-        
+
+
 
         public static void ConnecToDB()
         {
 
              try
-            {
-                SqlConnection myConnection = new SqlConnection(path);
+             {
+	             SqlConnection myConnection = new SqlConnection(path);
                 myConnection.Open();
+				
                 Console.WriteLine("Yeah");
                 myConnection.Close();
-        
+				
             }
             catch(Exception e)
             {

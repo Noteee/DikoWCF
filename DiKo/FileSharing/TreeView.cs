@@ -115,13 +115,28 @@ namespace DiKo.FileSharing
 
         private void AddingToShared(object sender, MouseButtonEventArgs e, DataGrid dataGrid, object selected,List<FileShareHandler> list)
         {
-            FileAttributes attr = File.GetAttributes(@"" + path);
-            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
+            // get the file attributes for file or directory
+	        try
+	        {
+		        FileAttributes attr = File.GetAttributes(@"" + path);
+
+			}
+			catch (Exception exception)
+	        {
+		        Console.WriteLine(exception);
+	        }
+            //detect whether its a directory or file
+
+            if (SharedFileBrowsing.Browser.GetMySharedFiles() != null && programFirstStart == false)
             {
-            }
-            if (list != null && programFirstStart == true)
-            {
-                FillDataGrid(list,dataGrid);
+
+                foreach (FileShareHandler fsh in SharedFileBrowsing.Browser.GetMySharedFiles())
+                {
+                    dataGrid.Items.Add(new DataItem { fileName = fsh.FileName, fileEx = fsh.FileExtension, fileSize = fsh.FileSize, filePath = fsh.FilePath });
+                    WriteSharedFileList(dataGrid);
+                    currentDatagrid = this.dataGrid;
+                    programFirstStart = true;
+                }
             }
             if(list!= null && programFirstStart == false)
             {

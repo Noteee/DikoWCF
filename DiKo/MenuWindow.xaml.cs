@@ -25,7 +25,7 @@ namespace DiKo
 	/// <summary>
 	/// Interaction logic for MenuWindow.xaml
 	/// </summary>
-	public partial class MenuWindow : Window
+	public partial class MenuWindow : MetroWindow
 	{
 		getDownloadPath downloadPath = new getDownloadPath();
 		LoadingScreen loadingScreen = new LoadingScreen();
@@ -37,7 +37,6 @@ namespace DiKo
 		{
 			InitializeComponent();
 			downloadPath.setPath(downloadPath.GetEnvironmentalVariable());
-			//this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			FileData datagrid = new FileData(sharedGrid);
 			FileData datagridShared = new FileData(itemsSharedWithMeGrid);
 			FileData datagridMyWishList = new FileData(MyWishListGrid);
@@ -47,20 +46,14 @@ namespace DiKo
 			Treeview tree = new Treeview(whatToShareTreeView, sharedGrid);
 			tree.Window_Loaded();
 			SQLDAL.SQLDAL.ConnecToDB();
-			sharedContentPanel.Visibility = Visibility.Visible;
-			sharedTreeViewPanel.Visibility = Visibility.Visible;
-			itemsSharedWithMePanel.Visibility = Visibility.Hidden;
-			SharedDataGrid.Background = Brushes.DimGray;
-			TreeGrid.Background = Brushes.DarkGray;
+			sharedPanelShow();
+			setBackgroundForSharedFiles();
 			sharedWithMe.Background = Brushes.Transparent;
             myWishListHide();
 			ShareButtonPanel.Visibility = Visibility.Visible;
-            Treeview.SetMyShareListAsCurrent();
-            itemsSharedWithMeGrid.Visibility = Visibility.Hidden;
-			downLoadPanel.Visibility = Visibility.Hidden;
-			wishListPanel.Visibility = Visibility.Hidden;
-			refreshPanel.Visibility = Visibility.Hidden;
-			searchPanel.Visibility = Visibility.Hidden;
+			itemsSharedWithMeHide();
+			myWishListHide();
+			
 		}
 
 
@@ -135,6 +128,8 @@ namespace DiKo
 
 		private void setBackgroundForSharedFiles()
 		{
+			LinearGradientBrush gradientBrush = new LinearGradientBrush(Color.FromRgb(85, 98, 112), Color.FromRgb(255, 107, 107), new Point(0.5, 0), new Point(0.5, 1));
+
 			SharedDataGrid.Background = Brushes.DimGray;
 			TreeGrid.Background = Brushes.DarkGray;
 			sharedWithMe.Background = Brushes.Transparent;

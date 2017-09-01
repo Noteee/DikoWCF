@@ -6,7 +6,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:DiKo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="432.652" Width="763.775"
+        Title="MainWindow" Icon="Images/app-share-icon-1.png" Height="432.652" Width="763.775"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent">
 
 
