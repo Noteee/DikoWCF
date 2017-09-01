@@ -24,7 +24,7 @@ namespace DiKo
 	/// <summary>
 	/// Interaction logic for MenuWindow.xaml
 	/// </summary>
-	public partial class MenuWindow : Window
+	public partial class MenuWindow : MetroWindow
 	{
 		getDownloadPath downloadPath = new getDownloadPath();
 		LoadingScreen loadingScreen = new LoadingScreen();

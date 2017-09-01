@@ -152,6 +152,7 @@
     <Resource Include="Images\download-icon-png-20.png" />
     <Resource Include="Images\Search-Icon-PNG-Graphic-Cave.png" />
     <Resource Include="Images\file-manager-for-windows-phone.png" />
+    <Resource Include="Images\app-share-icon-1.png" />
     <Content Include="Images\splashBackground.jpg" />
   </ItemGroup>
   <ItemGroup>
